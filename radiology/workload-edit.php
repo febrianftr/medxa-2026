@@ -477,7 +477,7 @@ if ($_SESSION['level'] == "radiology") {
 											?>
 												<div class="card-custom">
 													<div class="card-header-custom">
-														<?= defaultValue($mrn['prosedur']); ?>
+														<?= defaultValue($mrn['study_desc_pacsio']); ?>
 													</div>
 
 													<div class="info-item">
