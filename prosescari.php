@@ -44,8 +44,6 @@ $query_base = "SELECT
               mods_in_study,
               study.updated_time,
               status,
-              kv,
-              mas,
               spc_needs,
               approved_at,
               pk_dokter_radiology,
@@ -65,9 +63,7 @@ $query_base = "SELECT
               JOIN $table_workload
               ON study.study_iuid = xray_workload.uid
               LEFT JOIN $table_order
-              ON xray_order.uid = xray_workload.uid
-              LEFT JOIN $table_workload_bhp
-              ON xray_workload.uid = xray_workload_bhp.uid";
+              ON xray_order.uid = xray_workload.uid";
 
 // kondisi jika login radiology dan link workload.php
 if ($level == 'radiology' && !$queryphp) {
@@ -86,6 +82,11 @@ if ($_POST["is_date_search"] == "yes") {
   $to_study_datetime = date_format($to, "Y-m-d H:i");
 
   $query .= 'study.study_datetime BETWEEN "' . $from_study_datetime . '" AND "' . $to_study_datetime . '" AND ';
+} else {
+  $date = date('Y-m-d 23:59', strtotime("-30 days"));
+  $date2 = date('Y-m-d 23:59');
+
+  $query .= 'study.study_datetime BETWEEN "' . $date . '" AND "' . $date2 . '" AND ';
 }
 
 // kolom untuk mencari LIKE masing2 kolom (SEARCHING)
@@ -191,8 +192,6 @@ while ($row = mysqli_fetch_array($result)) {
   $spendtime = spendTime($study_datetime, $approved_at, $row['status']);
   $blinking = hour($study_datetime, $row['status'], $priority, $mods_in_study, $contrast, $prosedur);
   $pk_dokter_radiology = $row['pk_dokter_radiology'];
-  $kv = $row['kv'];
-  $mas = $row['mas'];
   $spc_needs = $row['spc_needs'];
   //kondisi status change doctor
   if ($row['status'] == 'approved') {
@@ -210,13 +209,8 @@ while ($row = mysqli_fetch_array($result)) {
   }
 
   // kondisi ketika klinis dan kv mas kosong menggunakan icon berbeda
-  if ($kv == null || $mas == null || $spc_needs == null) {
-    $icon_edit_pasien = EDITPASIENICONNO;
-    // $icon_edit_pasien = "no";
-  } else {
-    $icon_edit_pasien = EDITPASIENICONYES;
-    // $icon_edit_pasien = "yes";
-  }
+  $icon_edit_pasien = EDITPASIENICONNO;
+  // $icon_edit_pasien = "no";
 
   $row_envelope = mysqli_fetch_assoc(mysqli_query(
     $conn,
