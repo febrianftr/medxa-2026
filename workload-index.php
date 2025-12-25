@@ -11,110 +11,6 @@ $http_referer = $_SERVER['HTTP_REFERER'] ?? '';
 $explode = explode('/', $http_referer);
 $queryphp = in_array("query.php", $explode);
 
-$waitingCito1hour = mysqli_fetch_assoc(mysqli_query(
-	$conn_pacsio,
-	"SELECT 
-	COUNT(*) AS jumlah
-	FROM $table_patient
-	JOIN $table_study 
-	ON patient.pk = study.patient_fk 
-	JOIN $table_workload
-	ON study.study_iuid = xray_workload.uid 
-	LEFT JOIN $table_order
-	ON xray_order.uid = xray_workload.uid 
-	WHERE status = 'waiting'
-	AND study.study_datetime < DATE_SUB(NOW(), INTERVAL 1 HOUR)
-	AND priority = 'cito'
-	AND (contrast = 0 || contrast IS NULL)
-	AND study.updated_time >= '2023-11-26'
-	"
-));
-$moreThanCito1hour = $waitingCito1hour["jumlah"];
-
-$waiting3hourReguler = mysqli_fetch_assoc(mysqli_query(
-	$conn_pacsio,
-	"SELECT 
-	COUNT(*) AS jumlah
-	FROM $table_patient
-	JOIN $table_study 
-	ON patient.pk = study.patient_fk 
-	JOIN $table_workload
-	ON study.study_iuid = xray_workload.uid 
-	LEFT JOIN $table_order
-	ON xray_order.uid = xray_workload.uid 
-	WHERE status = 'waiting'
-	AND study.study_datetime < DATE_SUB(NOW(), INTERVAL 3 HOUR)
-	AND priority = 'normal'
-	AND (contrast = 0 || contrast IS NULL)
-	AND mods_in_study IN('CR', 'DX')
-	AND study_desc_pacsio = 'THORAK'
-	AND study.updated_time >= '2023-11-26'
-	"
-));
-$moreThan3hourReguler = $waiting3hourReguler["jumlah"];
-
-$waiting6hourContrast = mysqli_fetch_assoc(mysqli_query(
-	$conn_pacsio,
-	"SELECT 
-	COUNT(*) AS jumlah
-	FROM $table_patient
-	JOIN $table_study 
-	ON patient.pk = study.patient_fk 
-	JOIN $table_workload
-	ON study.study_iuid = xray_workload.uid 
-	LEFT JOIN $table_order
-	ON xray_order.uid = xray_workload.uid 
-	WHERE status = 'waiting'
-	AND study.study_datetime < DATE_SUB(NOW(), INTERVAL 6 HOUR)
-	AND priority = 'normal'
-	AND contrast = 1
-	AND study.updated_time >= '2023-11-26'
-	"
-));
-$moreThan6hourContrast = $waiting6hourContrast["jumlah"];
-
-$waitingCT6hourReguler = mysqli_fetch_assoc(mysqli_query(
-	$conn_pacsio,
-	"SELECT 
-	COUNT(*) AS jumlah
-	FROM $table_patient
-	JOIN $table_study 
-	ON patient.pk = study.patient_fk 
-	JOIN $table_workload
-	ON study.study_iuid = xray_workload.uid 
-	LEFT JOIN $table_order
-	ON xray_order.uid = xray_workload.uid 
-	WHERE status = 'waiting'
-	AND study.study_datetime < DATE_SUB(NOW(), INTERVAL 6 HOUR)
-	AND priority = 'normal'
-	AND (contrast = 0 || contrast IS NULL)
-	AND mods_in_study IN('CT','CT\\\\SR')
-	AND study.updated_time >= '2023-11-26'
-	"
-));
-$moreThanCT6hourReguler = $waitingCT6hourReguler["jumlah"];
-
-$waitingUSG1hourReguler = mysqli_fetch_assoc(mysqli_query(
-	$conn_pacsio,
-	"SELECT 
-	COUNT(*) AS jumlah
-	FROM $table_patient
-	JOIN $table_study 
-	ON patient.pk = study.patient_fk 
-	JOIN $table_workload
-	ON study.study_iuid = xray_workload.uid 
-	LEFT JOIN $table_order
-	ON xray_order.uid = xray_workload.uid 
-	WHERE status = 'waiting'
-	AND study.study_datetime < DATE_SUB(NOW(), INTERVAL 1 HOUR)
-	AND priority = 'normal' 
-	AND (contrast = 0 || contrast IS NULL)
-	AND mods_in_study IN('US') 
-	AND study_desc NOT IN('USG DOPPLER') 
-	AND study.updated_time >= '2023-11-26'
-	"
-));
-
 $query = "SELECT COUNT(*) AS total
 FROM $table_study
 JOIN $table_workload
@@ -137,29 +33,6 @@ $approved = mysqli_fetch_assoc(mysqli_query(
 	$conn_pacsio,
 	$query . ' WHERE DATE(approved_at) = CURRENT_DATE() AND status = "approved"'
 ));
-$moreThanUSG1hourReguler = $waitingUSG1hourReguler["jumlah"];
-
-$waitingUSGDoppler2hourReguler = mysqli_fetch_assoc(mysqli_query(
-	$conn_pacsio,
-	"SELECT 
-	COUNT(*) AS jumlah
-	FROM $table_patient
-	JOIN $table_study 
-	ON patient.pk = study.patient_fk 
-	JOIN $table_workload
-	ON study.study_iuid = xray_workload.uid 
-	LEFT JOIN $table_order
-	ON xray_order.uid = xray_workload.uid 
-	WHERE status = 'waiting'
-	AND study.study_datetime < DATE_SUB(NOW(), INTERVAL 2 HOUR)
-	AND priority = 'normal' 
-	AND (contrast = 0 || contrast IS NULL)
-	AND mods_in_study IN('US') 
-	AND study_desc IN('USG DOPPLER') 
-	AND study.updated_time >= '2023-11-26'
-	"
-));
-$moreThanUSGDoppler2hourReguler = $waitingUSGDoppler2hourReguler["jumlah"];
 ?>
 <style>
 	#purchase_order tbody tr {
@@ -338,7 +211,7 @@ $moreThanUSGDoppler2hourReguler = $waitingUSGDoppler2hourReguler["jumlah"];
 					"order": [],
 					"searching": false,
 					"ajax": {
-						url: "../prosescari-test.php",
+						url: "../prosescari.php",
 						type: "POST",
 						data: {
 							is_date_search: is_date_search,

@@ -210,7 +210,6 @@ while ($row = mysqli_fetch_array($result)) {
 
   // kondisi ketika klinis dan kv mas kosong menggunakan icon berbeda
   $icon_edit_pasien = EDITPASIENICONNO;
-  // $icon_edit_pasien = "no";
 
   $row_envelope = mysqli_fetch_assoc(mysqli_query(
     $conn,
@@ -244,16 +243,15 @@ while ($row = mysqli_fetch_array($result)) {
     if (!$queryphp) {
       // kondisi jika login radiology dan link workload.php
       $detail = '<a href="workload-edit.php?uid=' . $study_iuid . '" class="penawaran-a">' . removeCharacter(mb_convert_encoding($pat_name, 'UTF-8', 'ISO-8859-1')) . '</a>';
-      $editworkload = EDITWORKLOADFIRST . $study_iuid . EDITWORKLOADLAST;
+      $editworkload = EDITWORKLOADFIRST . $study_iuid . EDITWORKLOADLAST . CHANGEDOCTORFIRST . "'$study_iuid', '$dokradid', '$workload_status'" . CHANGEDOCTORLAST . $icon_change_doctor . CHANGEDOCTORVERYLAST;
     } else {
       // kondisi jika login radiology dan link query.php
       $editworkload = "";
     }
     $level =
-      HOROSFIRST . $study_iuid . HOROSLAST .
+      // HOROSFIRST . $study_iuid . HOROSLAST .
       RADIANTFIRST . $study_iuid . RADIANTLAST .
       OHIFNEWFIRST . $study_iuid . OHIFNEWLAST .
-      CHANGEDOCTORFIRST . "'$study_iuid', '$dokradid', '$workload_status'" . CHANGEDOCTORLAST . $icon_change_doctor . CHANGEDOCTORVERYLAST .
       $editworkload;
     // TELEDOKTERPENGIRIMFIRST . $study_iuid . TELEDOKTERPENGIRIMLAST .
     // TELEGRAMSIGNATUREFIRST . $study_iuid . TELEGRAMSIGNATURELAST;
@@ -261,16 +259,18 @@ while ($row = mysqli_fetch_array($result)) {
   } else if ($level == 'radiographer') {
     // kondisi ketika xray_workload masuk dari trigger
     if ($status != '-') {
-      $level = $level = EDITPASIENFIRST . $study_iuid . EDITPASIENLAST . $icon_edit_pasien . EDITPASIENVERYLAST .
-        CHANGEDOCTORFIRST . "'$study_iuid', '$dokradid', '$workload_status'" . CHANGEDOCTORLAST . $blinking . CHANGEDOCTORCLASS . $icon_change_doctor . CHANGEDOCTORVERYLAST .
+      $level = $level = '<h6 class="dropdown-title1">Viewer</h6>' .
         OHIFNEWFIRST . $study_iuid . OHIFNEWLAST .
         HTMLFIRST . $study_iuid . HTMLLAST .
+        '<h6 class="dropdown-title1"> Patient</h6>' .
+        EDITPASIENFIRST . $study_iuid . EDITPASIENLAST . $icon_edit_pasien . EDITPASIENVERYLAST .
+        CHANGEDOCTORFIRST . "'$study_iuid', '$dokradid', '$workload_status'" . CHANGEDOCTORLAST . $icon_change_doctor . CHANGEDOCTORCLASS  . CHANGEDOCTORVERYLAST .
         CHANGEEXPDATEFIRST . $study_iuid . CHANGEEXPDATELAST .
-        LINKOHIFFIRST . EXTLINKOHIF . $addonlinkohif . $row['study_iuid'] . EXTLINKOHIF . LINKOHIFLAST .
+        // LINKOHIFFIRST . EXTLINKOHIF . $addonlinkohif . $row['study_iuid'] . EXTLINKOHIF . LINKOHIFLAST .
         CHOOSESERIESFIRST . $study_iuid . CHOOSESERIESLAST .
+        PUSHNOTIFICATIONFIRST . $study_iuid . PUSHNOTIFICATIONLAST .
         // COPYUIDFIRST . EXTLINKOHIF . $row['study_iuid'] . EXTLINKOHIF . COPYUIDLAST
-        SENDDICOMFIRST . $study_iuid . SENDDICOMLAST .
-        PUSHNOTIFICATIONFIRST . $study_iuid . PUSHNOTIFICATIONLAST;
+        SENDDICOMFIRST . $study_iuid . SENDDICOMLAST;
       // GETEXPERTISEFIRST . $name_envelope . ' ' . defaultValueDateTime($created_at_envelope) . $href_get_expertise . GETEXPERTISELAST . $icon_get_expertise . GETEXPERTISEVERYLAST;
       // TELEDOKTERPENGIRIMFIRST . $study_iuid . TELEDOKTERPENGIRIMLAST;
       // DELETEFIRST . $study_iuid . DELETELAST;
@@ -322,12 +322,13 @@ while ($row = mysqli_fetch_array($result)) {
 
   $sub_array = array();
   $sub_array[] = $i;
-  $sub_array[] =
-    PDFFIRST . $study_iuid . PDFLAST .
-    $level;
+  $sub_array[] = '<div class="dropdown custom-dropdown1 dropright">
+	<button class="btn filter-btn2 dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+Action</button><div class="dropdown-menu dropdown-menu-right dropdown-menu1" aria-labelledby="dropdownMenuButton1">' . PDFFIRST . $study_iuid . PDFLAST . $level . '</div>';
   $sub_array[] = $status . '&nbsp;' . $badge;
-  $sub_array[] = $detail . '&nbsp;' . $priority_style;
+  $sub_array[] = '<div style="text-align: start;">' . $detail . '&nbsp;' . $priority_style . '</div>';
   $sub_array[] = $pat_id;
+  $sub_array[] = $study_datetime;
   $sub_array[] = $no_foto;
   $sub_array[] = $pat_birthdate;
   $sub_array[] = $pat_sex;
@@ -338,7 +339,6 @@ while ($row = mysqli_fetch_array($result)) {
   $sub_array[] = mb_convert_encoding($name_dep, 'UTF-8', 'ISO-8859-1');
   $sub_array[] = mb_convert_encoding($dokrad_name, 'UTF-8', 'ISO-8859-1');;
   $sub_array[] = READMORERADIOGRAPHERFIRST . $study_iuid . READMORERADIOGRAPHERLAST;
-  $sub_array[] = $study_datetime;
   $sub_array[] = $approved_at;
   $sub_array[] = $spendtime;
   $sub_array[]  = $i++;
@@ -347,13 +347,13 @@ while ($row = mysqli_fetch_array($result)) {
 
 function get_all_data($val_con, $val_query)
 {
-  $result = mysqli_query($val_con, $val_query);
-  return mysqli_num_rows($result);
+  $row = mysqli_fetch_assoc(mysqli_query($val_con, $val_query));
+  return $row['total_row'];
 }
 
 $output = array(
   "draw"    => intval($_POST["draw"]),
-  "recordsTotal"  =>  get_all_data($conn_pacsio, $query_base . $kondisi),
+  "recordsTotal"  =>  get_all_data($conn_pacsio, "SELECT count(*) AS total_row FROM $table_patient JOIN $table_study ON patient.pk = study.patient_fk"),
   "recordsFiltered" => $number_filter_row,
   "data"    => $data
 );
