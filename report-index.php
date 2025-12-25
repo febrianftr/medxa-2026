@@ -161,7 +161,7 @@
  								</ul>
  							</div>
  						</div>
- 						<div class="row justify-content-center align-items-center" style="padding: 10px; border-radius: 5px; border: solid 2px #363636; margin-bottom: 5px;;">
+ 						<!-- <div class="row justify-content-center align-items-center" style="padding: 10px; border-radius: 5px; border: solid 2px #363636; margin-bottom: 5px;;">
  							<div class="col-md-6">
  								<input type="checkbox" class="check-priorities" style="margin-top: 0px;" checked> <label class="label-report1"><?= $lang['check_all'] ?> Priority: </label>
  								<ul class="ks-cboxtags">
@@ -169,8 +169,8 @@
  									<li><label><input class="common_selector check-priority cbox5 checkbox4 search-input-workload" type="checkbox" id="priority" name="priority[]" value="cito" checked><span>Cito</span></label></li>
  								</ul>
  							</div>
- 						</div>
- 						<div class="row justify-content-center align-items-center" style="padding: 10px; border-radius: 5px; border: solid 2px #363636; margin-bottom: 5px;;">
+ 						</div> -->
+ 						<!-- <div class="row justify-content-center align-items-center" style="padding: 10px; border-radius: 5px; border: solid 2px #363636; margin-bottom: 5px;;">
  							<div class="col-md-6">
  								<input type="checkbox" class="check-contrasts" style="margin-top: 0px;" checked> <label class="label-report1"><?= $lang['check_all'] ?> Contrast:</label>
  								<ul class="ks-cboxtags">
@@ -178,7 +178,7 @@
  									<li><label><input class="common_selector check-contrast cbox5 checkbox4 search-input-workload" type="checkbox" id="contrast" name="contrast[]" value="0" checked><span>Tidak Kontras</span></label></li>
  								</ul>
  							</div>
- 						</div>
+ 						</div> -->
  						<div class="row justify-content-center align-items-center" style="padding: 10px; border-radius: 5px; border: solid 2px #363636; margin-bottom: 5px;;">
  							<div class="col-md-6">
  								<div class="form-group">
@@ -196,7 +196,7 @@
  								</div>
  							</div>
  						</div>
- 						<div class="row justify-content-center align-items-center" style="padding: 10px; border-radius: 5px; border: solid 2px #363636; margin-bottom: 5px;;">
+ 						<!-- <div class="row justify-content-center align-items-center" style="padding: 10px; border-radius: 5px; border: solid 2px #363636; margin-bottom: 5px;;">
  							<div class="col-md-6">
  								<div class="form-group">
  									<label for="sel1" class="label-report1">Select Department:</label>
@@ -212,7 +212,7 @@
  									</select>
  								</div>
  							</div>
- 						</div>
+ 						</div> -->
  						<div class="row justify-content-center align-items-center" style="padding: 10px; border-radius: 5px; border: solid 2px #363636; margin-bottom: 5px;;">
  							<div class="col-md-6">
  								<div class="form-group">
