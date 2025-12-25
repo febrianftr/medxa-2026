@@ -8,6 +8,11 @@ require '../model/query-base-order.php';
 require '../model/query-base-workload.php';
 require '../model/query-base-template.php';
 require '../model/query-base-selected-dokter-radiology.php';
+require '../log.php';
+require '../date-time-zone.php';
+require __DIR__ . '/vendor/autoload.php';
+
+use GuzzleHttp\Client;
 
 session_start();
 
@@ -159,6 +164,8 @@ if (isset($_POST["save_draft"])) {
 
 // untuk tombol approved
 if (isset($_POST["save_approve"])) {
+	$approve_date = date("Y-m-d H:i:s");
+	$fillDecode = html_entity_decode(strip_tags($_POST['fill']));
 	if ($_POST['fill'] == null) {
 		echo "<script type='text/javascript'>
 					alert('expertise wajib diisi');
@@ -168,39 +175,70 @@ if (isset($_POST["save_approve"])) {
 			($dokraid_order == $dokradid && $selected_dokter_radiology['is_active'] == 0) or
 			($dokraid_order == null && $selected_dokter_radiology['is_active'] == 0)
 		) {
-			if (insert_workload($_POST)) {
-				echo "<script type='text/javascript'>
-					setTimeout(function () { 
-					swal({
-							title: 'Berhasil expertise!',
-							text:  '',
-							icon: 'success',
-							timer: 1000,
-							showConfirmButton: true
-						});  
-					},10); 
-					window.setTimeout(function(){ 
-					document.location.href= 'dicom.php';
-					} ,1000); 
-					win = window.open('pdf/expertise.php?uid=$uid', '_blank');
-					win.focus();
-					win.print();
-				</script>";
-			} else {
-				echo "<script type='text/javascript'>
-					setTimeout(function () { 
-					swal({
-							title: 'Gagal Expertise!',
-							text:  '',
-							icon: 'error',
-							timer: 1000,
-							showConfirmButton: true
-						});  
-					},10); 
-					window.setTimeout(function(){ 
-					history.back();
-					} ,1000); 
-				</script>";
+			try {
+				$client = new Client([
+					'base_uri' => '192.168.132.75:8080',
+
+				]);
+				$data = [
+					'auth' => [
+						'pacs',
+						'pacs123'
+					],
+					'json' => [
+						"uid" => $uid,
+						"note" => @$_POST['fill']
+					],
+					'http_errors' => false
+				];
+
+				$response = $client->request('POST', '/restfull-api/rad/expertise', $data);
+				$body = $response->getBody();
+				$data = json_decode($body, true);
+				$dataMessage = $data['message'];
+				$dataStatus = $data['status'];
+				$log = "{message: $dataMessage, status: $dataStatus, accession_no: $accession_no, approve_tgl: $approve_date, dokradid : $dokradid, expertise : $fill }";
+				// jika API simrs true dan API RIS true
+				if (insert_workload($_POST) && $dataStatus == true) {
+					echo "
+						<script>
+							alert('approved to RIS & SIMRS');
+							document.location.href= 'dicom.php';
+							win = window.open('pdf/expertise.php?uid=$uid', '_blank');
+							win.focus();
+							win.print();
+						</script>
+        				";
+					$message = "[" . date('d-m-Y H:i:s') . "] approved to RIS & SIMRS $log" . PHP_EOL;
+					logging($message, "../log/worklist.log");
+				}
+				// jika data belum bridging SIMRS
+				else {
+					insert_workload($_POST);
+					echo "
+						<script>
+							alert('approved to RIS, SIMRS $dataMessage');
+							document.location.href= 'dicom.php';
+							win = window.open('pdf/expertise.php?uid=$uid', '_blank');
+							win.focus();
+							win.print();
+						</script>";
+					$message = "[" . date('d-m-Y H:i:s') . "] approved to RIS, SIMRS $dataMessage $log" . PHP_EOL;
+					logging($message, "../log/worklist.log");
+				}
+			} catch (GuzzleHttp\Exception\GuzzleException $th) {
+				// jika API RIS true, simrs error 
+				insert_workload($_POST);
+				echo "<script>
+						alert('approved to RIS, SIMRS(koneksi down)');
+						document.location.href= 'dicom.php';
+						win = window.open('pdf/expertise.php?uid=$uid', '_blank');
+						win.focus();
+						win.print();
+					</script>";
+				$log = "{accession_no: $accession_no, approve_tgl: $approve_date, dokradid : $dokradid, expertise : $fill }";
+				$message = "[" . date('d-m-Y H:i:s') . "] approved to RIS, SIMRS(koneksi down) $log" . PHP_EOL;
+				logging($message, "../log/worklist.log");
 			}
 		} else {
 			echo "<script type='text/javascript'>

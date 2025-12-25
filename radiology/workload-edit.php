@@ -8,6 +8,11 @@ require '../model/query-base-order.php';
 require '../model/query-base-workload.php';
 require '../model/query-base-template.php';
 require '../model/query-base-selected-dokter-radiology.php';
+require '../log.php';
+require '../date-time-zone.php';
+require __DIR__ . '/vendor/autoload.php';
+
+use GuzzleHttp\Client;
 
 session_start();
 // menampilkan data xray exam
@@ -116,20 +121,71 @@ if (isset($_POST["save_template"])) {
 	}
 }
 if (isset($_POST["save_edit"])) {
-	if (update_workload($_POST)) {
-		echo "
-			<script>
-				document.location.href= 'workload.php';
-				win = window.open('pdf/expertise.php?uid=$uid', '_blank');
-				win.focus();
-				win.print();
-			</script>";
-	} else {
-		echo "
-			<script>
-				alert('Report Gagal Di Simpan ke Draft');
-				history.back();
-			</script>";
+	$approve_date = date("Y-m-d H:i:s");
+	try {
+		$client = new Client([
+			'base_uri' => '192.168.132.75:8080',
+
+		]);
+		$data = [
+			'auth' => [
+				'pacs',
+				'pacs123'
+			],
+			'json' => [
+				"uid" => $uid,
+				"note" => @$_POST['fill']
+			],
+			'http_errors' => false
+		];
+
+		$response = $client->request('POST', '/restfull-api/rad/expertise', $data);
+		$body = $response->getBody();
+		$data = json_decode($body, true);
+		$dataMessage = $data['message'];
+		$dataStatus = $data['status'];
+		$log = "{message: $dataMessage, status: $dataStatus, accession_no: $accession_no, approve_tgl: $approve_date, dokradid : $dokradid, expertise : $fill }";
+		// jika API simrs true dan API RIS true
+		if (update_workload($_POST) && $dataStatus == true) {
+			echo "
+					<script>
+						alert('approved to RIS & SIMRS');
+						document.location.href= 'workload.php';
+						win = window.open('pdf/expertise.php?uid=$uid', '_blank');
+						win.focus();
+						win.print();
+					</script>
+        				";
+			$message = "[" . date('d-m-Y H:i:s') . "] approved to RIS & SIMRS $log" . PHP_EOL;
+			logging($message, "../log/workload-edit.log");
+		}
+		// jika data belum bridging SIMRS
+		else {
+			update_workload($_POST);
+			echo "
+					<script>
+						alert('approved to RIS, SIMRS $dataMessage');
+						document.location.href= 'workload.php';
+						win = window.open('pdf/expertise.php?uid=$uid', '_blank');
+						win.focus();
+						win.print();
+					</script>";
+			$message = "[" . date('d-m-Y H:i:s') . "] approved to RIS, SIMRS $dataMessage $log" . PHP_EOL;
+			logging($message, "../log/workload-edit.log");
+		}
+	} catch (GuzzleHttp\Exception\GuzzleException $th) {
+		// jika API RIS true, simrs error 
+		update_workload($_POST);
+		echo "<script>
+					alert('approved to RIS, SIMRS(koneksi down)');
+					document.location.href= 'workload.php';
+					win = window.open('pdf/expertise.php?uid=$uid', '_blank');
+					win.focus();
+					win.print();
+				</script>";
+		$log = "{accession_no: $accession_no, approve_tgl: $approve_date, dokradid : $dokradid, expertise : $fill }";
+		$message = "[" . date('d-m-Y H:i:s') . "] approved to RIS, SIMRS(koneksi down) $log" . PHP_EOL;
+		logging($message, "../log/workload-edit.log");
 	}
 }
 
