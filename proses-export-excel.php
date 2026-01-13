@@ -232,7 +232,7 @@ $sum = mysqli_fetch_array(mysqli_query(
 $studies = mysqli_query(
     $conn_pacsio,
     "SELECT 
-    UPPER(study_desc_pacsio) AS study_desc_pacsio,
+    UPPER(prosedur) AS prosedur,
     COUNT(*) AS jumlah
     FROM $table_patient
     JOIN $table_study
@@ -246,15 +246,15 @@ $studies = mysqli_query(
     LEFT JOIN (SELECT * FROM $table_workload_radiographers WHERE $kondisi_radiographer GROUP BY uid) xray_workload_radiographers 
     ON xray_workload.uid = xray_workload_radiographers.uid
     WHERE $kondisi
-    GROUP BY UPPER(study_desc_pacsio)
-    ORDER BY study_desc_pacsio ASC"
+    GROUP BY UPPER(prosedur)
+    ORDER BY prosedur ASC"
 );
 
 // menampilkan total pemeriksaan
 $countStudies = mysqli_fetch_array(mysqli_query(
     $conn_pacsio,
     "SELECT 
-    COUNT(study_desc_pacsio) AS count_studies
+    COUNT(prosedur) AS count_studies
     FROM $table_patient
     JOIN $table_study
     ON patient.pk = study.patient_fk
@@ -479,7 +479,7 @@ while ($status = mysqli_fetch_array($statuses)) {
             while ($study = mysqli_fetch_array($studies)) { ?>
                 <tr>
                     <td align="center"><?= $no ?></td>
-                    <td align="center"><?= $study['study_desc_pacsio']; ?></td>
+                    <td align="center"><?= $study['prosedur']; ?></td>
                     <td align="center"><?= $study['jumlah']; ?></td>
                 </tr>
             <?php
