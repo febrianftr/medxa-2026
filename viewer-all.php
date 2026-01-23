@@ -34,7 +34,7 @@ define('LINKHTMLLAST', '"target="_blank');
 
 function viewerBaru($port)
 {
-    return "http://' . $_SERVER[SERVER_NAME] . ':$port/viewer?study=";
+    return "http://$_SERVER[SERVER_NAME]:$port/viewer?study=";
 }
 if ($_SERVER['SERVER_NAME'] == $hostname['ip_publik']) {
 
