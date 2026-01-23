@@ -252,6 +252,7 @@ while ($row = mysqli_fetch_array($result)) {
       // HOROSFIRST . $study_iuid . HOROSLAST .
       RADIANTFIRST . $study_iuid . RADIANTLAST .
       OHIFNEWFIRST . $study_iuid . OHIFNEWLAST .
+      VIEWERADVANCEFIRST . $study_iuid . VIEWERADVANCELAST .
       $editworkload;
     // TELEDOKTERPENGIRIMFIRST . $study_iuid . TELEDOKTERPENGIRIMLAST .
     // TELEGRAMSIGNATUREFIRST . $study_iuid . TELEGRAMSIGNATURELAST;
@@ -261,6 +262,9 @@ while ($row = mysqli_fetch_array($result)) {
     if ($status != '-') {
       $level = $level = '<h6 class="dropdown-title1">Viewer</h6>' .
         OHIFNEWFIRST . $study_iuid . OHIFNEWLAST .
+        VIEWERADVANCEFIRST . $study_iuid . VIEWERADVANCELAST .
+        VIEWERMOBILEFIRST . $study_iuid  . VIEWERMOBILELAST .
+        VIEWERCLINICFIRST . $study_iuid . VIEWERCLINICLAST .
         HTMLFIRST . $study_iuid . HTMLLAST .
         '<h6 class="dropdown-title1"> Patient</h6>' .
         EDITPASIENFIRST . $study_iuid . EDITPASIENLAST . $icon_edit_pasien . EDITPASIENVERYLAST .
@@ -283,7 +287,8 @@ while ($row = mysqli_fetch_array($result)) {
   } else if ($level == 'refferal') {
     $level =
       // OHIFNEWFIRST . $study_iuid . OHIFNEWLAST .
-      HTMLFIRST . $study_iuid . HTMLLAST;
+      HTMLFIRST . $study_iuid . HTMLLAST .
+      VIEWERCLINICFIRST . $study_iuid . VIEWERCLINICLAST;
   } else {
     $level = '-';
   }
