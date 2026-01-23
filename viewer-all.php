@@ -28,6 +28,60 @@ if ($_SERVER['SERVER_NAME'] == $hostname['ip_publik'] or $_SERVER['SERVER_NAME']
 define('HTMLLAST', '"target="_blank"><i class="fas fa-x-ray"></i>Viewer HTML</a>');
 define('LINKHTMLLAST', '"target="_blank');
 
+// (CLINIC) http://localhost:84/viewer?study=
+// (MOBILE) http://localhost:90/viewer?study=
+// (ADVANCE) http://localhost:94/viewer?study=
+
+function viewerBaru($port)
+{
+    return "http://' . $_SERVER[SERVER_NAME] . ':$port/viewer?study=";
+}
+if ($_SERVER['SERVER_NAME'] == $hostname['ip_publik']) {
+
+    // KLINIK 
+    $clinic = viewerBaru(84);
+    define('VIEWERCLINICFIRST', '<a class="dropdown-item dropdown-item1" href="' . $clinic . '');
+    define('VIEWERCLINICLAST', '"target="_blank"><i class="fas fa-x-ray"></i>Viewer CLINIC</a>');
+    define('LINKVIEWERCLINICFIRST', '' . $clinic . '');
+    define('LINKVIEWERCLINICLAST', '"target="_blank');
+
+    // MOBILE
+    $mobile = viewerBaru(90);
+    define('VIEWERMOBILEFIRST', '<a class="dropdown-item dropdown-item1" href="' . $mobile . '');
+    define('VIEWERMOBILELAST', '"target="_blank"><i class="fas fa-x-ray"></i>Viewer MOBILE</a>');
+    define('LINKVIEWERMOBILEFIRST', '' . $mobile . '');
+    define('LINKVIEWERMOBILELAST', '"target="_blank');
+
+    // ADVANCE
+    $advance = viewerBaru(94);
+    define('VIEWERADVANCEFIRST', '<a class="dropdown-item dropdown-item1" href="' . $advance . '');
+    define('VIEWERADVANCELAST', '"target="_blank"><i class="fas fa-x-ray"></i>Viewer ADVANCE</a>');
+    define('LINKVIEWERADVANCEFIRST', '' . $advance . '');
+    define('LINKVIEWERADVANCELAST', '"target="_blank');
+} else {
+
+    // KLINIK 
+    $clinic = viewerBaru(84);
+    define('VIEWERCLINICFIRST', '<a class="dropdown-item dropdown-item1" href="' . $clinic . '');
+    define('VIEWERCLINICLAST', '"target="_blank"><i class="fas fa-x-ray"></i>Viewer CLINIC</a>');
+    define('LINKCLINICFIRST', '' . $clinic . '');
+    define('LINKVIEWERCLINICLAST', '"target="_blank');
+
+    // MOBILE
+    $mobile = viewerBaru(90);
+    define('VIEWERMOBILEFIRST', '<a class="dropdown-item dropdown-item1" href="' . $mobile . '');
+    define('VIEWERMOBILELAST', '"target="_blank"><i class="fas fa-x-ray"></i>Viewer MOBILE</a>');
+    define('LINKVIEWERMOBILEFIRST', '' . $mobile . '');
+    define('LINKVIEWERMOBILELAST', '"target="_blank');
+
+    // ADVANCE
+    $advance = viewerBaru(94);
+    define('VIEWERADVANCEFIRST', '<a class="dropdown-item dropdown-item1" href="' . $advance . '');
+    define('VIEWERADVANCELAST', '"target="_blank"><i class="fas fa-x-ray"></i>Viewer ADVANCE</a>');
+    define('LINKVIEWERADVANCEFIRST', '' . $advance . '');
+    define('LINKVIEWERADVANCELAST', '"target="_blank');
+}
+
 // Mobile
 define('MOBILEFIRST', '<a style="text-decoration:none;" class="ahref-edit" href="http://' . $_SERVER['SERVER_NAME'] . ':19898/dwv-viewer/index.html?type=manifest&input=%2Fweasis-pacs-connector%2Fmanifest%3FseriesUID%3D');
 define('MOBILELAST', '"target="_blank"><span class="btn btn-warning btn-inti"><i class="fas fa-eye" data-toggle="tooltip" title="Web Viewer"></i></span></a>');
