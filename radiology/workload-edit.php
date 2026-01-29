@@ -142,7 +142,7 @@ if (isset($_POST["save_edit"])) {
 			'http_errors' => false
 		];
 
-		$response = $client->request('POST', '/restfull-api/rad/expertise', $data);
+		$response = $client->request('POST', '/restfull-api/rad/expertise/accn', $data);
 		$body = $response->getBody();
 		$data = json_decode($body, true);
 		$dataMessage = $data['message'];
