@@ -127,15 +127,18 @@ if (isset($_POST["save_edit"])) {
 			'base_uri' => '192.168.132.75:8080',
 
 		]);
+
+		$json = [
+			"accn" => $accession_no,
+			"note" => @$_POST['fill']
+		];
+
 		$data = [
 			'auth' => [
 				'pacs',
 				'pacs123'
 			],
-			'json' => [
-				"uid" => $uid,
-				"note" => @$_POST['fill']
-			],
+			'json' => $json,
 			'http_errors' => false
 		];
 

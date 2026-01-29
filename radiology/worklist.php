@@ -180,19 +180,22 @@ if (isset($_POST["save_approve"])) {
 					'base_uri' => '192.168.132.75:8080',
 
 				]);
+
+				$json = [
+					"accn" => $accession_no,
+					"note" => @$_POST['fill']
+				];
+
 				$data = [
 					'auth' => [
 						'pacs',
 						'pacs123'
 					],
-					'json' => [
-						"uid" => $uid,
-						"note" => @$_POST['fill']
-					],
+					'json' => $json,
 					'http_errors' => false
 				];
 
-				$response = $client->request('POST', '/restfull-api/rad/expertise', $data);
+				$response = $client->request('POST', '/restfull-api/rad/expertise/accn', $data);
 				$body = $response->getBody();
 				$data = json_decode($body, true);
 				$dataMessage = $data['message'];
