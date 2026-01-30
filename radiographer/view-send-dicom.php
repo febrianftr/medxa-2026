@@ -23,7 +23,7 @@ $row = mysqli_fetch_assoc(mysqli_query(
 	WHERE study_iuid = '$uid'"
 ));
 
-$pat_name = defaultValue($row['pat_name']);
+$pat_name = str_replace('_', ' ', defaultValue($row['pat_name']));
 $pat_id = defaultValue($row['pat_id']);
 $pat_sex = styleSex($row['pat_sex']);
 $mods_in_study = defaultValue($row['mods_in_study']);

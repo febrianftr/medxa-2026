@@ -169,7 +169,7 @@ $result = mysqli_query($conn_pacsio, $query . $query1);
 $data = array();
 $i = 1;
 while ($row = mysqli_fetch_array($result)) {
-  $pat_name = defaultValue($row['pat_name']);
+  $pat_name = str_replace('_', ' ', defaultValue($row['pat_name']));
   $pat_sex = styleSex($row['pat_sex']);
   $pat_birthdate = diffDate($row['pat_birthdate']);
   $study_iuid = defaultValue($row['study_iuid']);
@@ -251,8 +251,7 @@ while ($row = mysqli_fetch_array($result)) {
     $level =
       // HOROSFIRST . $study_iuid . HOROSLAST .
       RADIANTFIRST . $study_iuid . RADIANTLAST .
-      OHIFNEWFIRST . $study_iuid . OHIFNEWLAST .
-      VIEWERADVANCEFIRST . $study_iuid . VIEWERADVANCELAST .
+      VIEWERCLINICFIRST . $study_iuid . VIEWERCLINICLAST .
       $editworkload;
     // TELEDOKTERPENGIRIMFIRST . $study_iuid . TELEDOKTERPENGIRIMLAST .
     // TELEGRAMSIGNATUREFIRST . $study_iuid . TELEGRAMSIGNATURELAST;
@@ -261,11 +260,11 @@ while ($row = mysqli_fetch_array($result)) {
     // kondisi ketika xray_workload masuk dari trigger
     if ($status != '-') {
       $level = $level = '<h6 class="dropdown-title1">Viewer</h6>' .
-        OHIFNEWFIRST . $study_iuid . OHIFNEWLAST .
-        VIEWERADVANCEFIRST . $study_iuid . VIEWERADVANCELAST .
-        VIEWERMOBILEFIRST . $study_iuid  . VIEWERMOBILELAST .
+        // OHIFNEWFIRST . $study_iuid . OHIFNEWLAST .
+        // VIEWERADVANCEFIRST . $study_iuid . VIEWERADVANCELAST .
+        // VIEWERMOBILEFIRST . $study_iuid  . VIEWERMOBILELAST .
         VIEWERCLINICFIRST . $study_iuid . VIEWERCLINICLAST .
-        HTMLFIRST . $study_iuid . HTMLLAST .
+        // HTMLFIRST . $study_iuid . HTMLLAST .
         '<h6 class="dropdown-title1"> Patient</h6>' .
         EDITPASIENFIRST . $study_iuid . EDITPASIENLAST . $icon_edit_pasien . EDITPASIENVERYLAST .
         CHANGEDOCTORFIRST . "'$study_iuid', '$dokradid', '$workload_status'" . CHANGEDOCTORLAST . $icon_change_doctor . CHANGEDOCTORCLASS  . CHANGEDOCTORVERYLAST .
@@ -281,13 +280,13 @@ while ($row = mysqli_fetch_array($result)) {
 
     } else {
       // kondisi ketika xray_workload tidak masuk dari trigger
-      $level = OHIFNEWFIRST . $study_iuid . OHIFNEWLAST;
+      $level = VIEWERCLINICFIRST . $study_iuid . VIEWERCLINICLAST ;
     }
     // ketika login refferal
   } else if ($level == 'refferal') {
     $level =
       // OHIFNEWFIRST . $study_iuid . OHIFNEWLAST .
-      HTMLFIRST . $study_iuid . HTMLLAST .
+      // HTMLFIRST . $study_iuid . HTMLLAST .
       VIEWERCLINICFIRST . $study_iuid . VIEWERCLINICLAST;
   } else {
     $level = '-';

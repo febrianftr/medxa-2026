@@ -38,9 +38,9 @@ if ($dicom == '/dicom.php') {
     // (dicom.php) berdasarkan priority CITO, updated_time DESC.
     // kondisi ketika bridging simrs status waiting dan dokradid simrs (xray_order).
     // OR kondisi ketika bridging simrs dokter radiologi is null atau pasien manual (tidak integrasi simrs). 
-    $kondisi = "WHERE (xray_workload.status = 'waiting' AND xray_order.dokradid = '$dokradid' AND study.study_datetime >= '2000-02-29')
+    $kondisi = "WHERE (xray_workload.status = 'waiting' AND xray_order.dokradid = '$dokradid' AND study.study_datetime >= '2026-01-01')
                 OR (xray_workload.status = 'waiting' AND xray_order.dokradid IS NULL)
-                AND study.study_datetime >= '2000-02-29'
+                AND study.study_datetime >= '2026-01-01'
                 ORDER BY xray_order.priority IS NULL, xray_order.priority ASC, study.study_datetime DESC 
                 LIMIT 3000";
 } else {
@@ -66,6 +66,7 @@ $query = mysqli_query(
     pk_dokter_radiology,
     patientid AS no_foto,
     named,
+    spc_needs,
     dokradid,
     dokrad_name,
     name_dep,
@@ -85,7 +86,7 @@ $query = mysqli_query(
 $data = [];
 $i = 1;
 while ($row = mysqli_fetch_array($query)) {
-    $pat_name = defaultValue($row['pat_name']);
+    $pat_name = str_replace('_', ' ', defaultValue($row['pat_name']));
     $pat_sex = styleSex($row['pat_sex']);
     $pat_birthdate = diffDate($row['pat_birthdate']);
     $study_iuid = defaultValue($row['study_iuid']);
@@ -100,6 +101,7 @@ while ($row = mysqli_fetch_array($query)) {
     $dokrad_name = defaultValue($row['dokrad_name']);
     $dokradid = $row['dokradid'];
     $priority = defaultValue($row['priority']);
+    $spc_needs = defaultValue($row['spc_needs']);
     $fromorder = $row['fromorder'];
     $status = styleStatus($row['status'], $study_iuid);
     $fill = $row['fill'];
@@ -138,7 +140,7 @@ while ($row = mysqli_fetch_array($query)) {
         if ($status != '-') {
             // kondisi pk_dokter_radiologi null dan dokradid null dan ketika aktif bernilai 1 mapping dokter
             if ($pk_dokter_radiology == null && $dokradid == null && $selected_dokter_radiology['is_active'] == 1) {
-                $aksi = '?';
+                $aksi = '<p class="notif-dok-null">Dokter radiologi belum dipilih</p>';
                 $detail = '<a href="dicom.php" onclick="validationDokter(event,' . "'$dokrad_fullname'" . ')" class="penawaran-a">' . mb_convert_encoding(removeCharacter($pat_name), 'UTF-8', 'ISO-8859-1') . '</a>';
             } else {
                 // kondisi ketika pasien manual tetapi pk_dokter_radiologi sudah ada 
@@ -219,6 +221,7 @@ while ($row = mysqli_fetch_array($query)) {
         "series_desc" => READMORESERIESFIRST . $study_iuid . READMORESERIESLAST,
         "mods_in_study" => $mods_in_study,
         "named" => mb_convert_encoding($named, 'UTF-8', 'ISO-8859-1'),
+        "spc_needs" => mb_convert_encoding($spc_needs, 'UTF-8', 'ISO-8859-1'),
         "name_dep" => mb_convert_encoding($name_dep, 'UTF-8', 'ISO-8859-1'),
         "dokrad_name" => mb_convert_encoding($dokrad_name, 'UTF-8', 'ISO-8859-1'),
         "radiographer_name" => READMORERADIOGRAPHERFIRST . $study_iuid . READMORERADIOGRAPHERLAST,

@@ -4715,6 +4715,11 @@ font-size: 15px;
   padding-right: 5px;
   }
 
+  .notif-dok-null{
+    color: #ddb09a;
+    padding: 7px;
+  }
+
 @media (max-width: 960px) {
   .img3 {
     width: 100%;

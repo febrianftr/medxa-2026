@@ -34,7 +34,7 @@ mysqli_stmt_bind_param($stmt, "s", $uid);
 mysqli_stmt_execute($stmt);
 $row = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
 
-$pat_name = substr(removeCharacter(ucwords(strtolower(defaultValue($row['pat_name'])))), 0, 14);
+$pat_name = str_replace('_', ' ', substr(removeCharacter(ucwords(strtolower(defaultValue($row['pat_name'])))), 0, 14));
 $pat_sex = $row['pat_sex'];
 $pat_birthdate = $row['pat_birthdate'];
 $age = diffDate($pat_birthdate);

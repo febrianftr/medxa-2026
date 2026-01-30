@@ -41,7 +41,7 @@ if ($_SERVER['SERVER_NAME'] == $hostname['ip_publik']) {
     // KLINIK 
     $clinic = viewerBaru(84);
     define('VIEWERCLINICFIRST', '<a class="dropdown-item dropdown-item1" href="' . $clinic . '');
-    define('VIEWERCLINICLAST', '"target="_blank"><i class="fas fa-x-ray"></i>Viewer CLINIC</a>');
+    define('VIEWERCLINICLAST', '"target="_blank"><i class="fas fa-x-ray"></i>Web Viewer</a>');
     define('LINKVIEWERCLINICFIRST', '' . $clinic . '');
     define('LINKVIEWERCLINICLAST', '"target="_blank');
 
@@ -63,8 +63,8 @@ if ($_SERVER['SERVER_NAME'] == $hostname['ip_publik']) {
     // KLINIK 
     $clinic = viewerBaru(84);
     define('VIEWERCLINICFIRST', '<a class="dropdown-item dropdown-item1" href="' . $clinic . '');
-    define('VIEWERCLINICLAST', '"target="_blank"><i class="fas fa-x-ray"></i>Viewer CLINIC</a>');
-    define('LINKCLINICFIRST', '' . $clinic . '');
+    define('VIEWERCLINICLAST', '"target="_blank"><i class="fas fa-x-ray"></i>Web Viewer</a>');
+    define('LINKVIEWERCLINICFIRST', '' . $clinic . '');
     define('LINKVIEWERCLINICLAST', '"target="_blank');
 
     // MOBILE

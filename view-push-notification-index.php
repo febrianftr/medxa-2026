@@ -35,7 +35,7 @@ $row = mysqli_fetch_assoc(mysqli_query(
 ));
 
 // ----------------
-$pat_name = removeCharacter(str_replace('^^^^', '', defaultValue($row['pat_name'])));
+$pat_name = str_replace('_', ' ', removeCharacter(str_replace('^^^^', '', defaultValue($row['pat_name']))));
 $pat_sex = defaultValue($row['pat_sex']);
 $pat_sex_style = styleSex($row['pat_sex']);
 $pat_birthdate = $row['pat_birthdate'] == null ? '' : date('d-m-Y', strtotime($row['pat_birthdate']));
@@ -195,7 +195,7 @@ if (isset($_POST["whatsapp_url_link"])) {
 //     $whatsapp = $_POST["phone"];
 //     try {
 //         $client = new Client([
-//             'base_uri' => "http://$server_name:9000/",
+//             'base_uri' => "http://$server_name:8000/",
 //         ]);
 //         $headers = [
 //             'headers' => [
@@ -383,7 +383,7 @@ if (isset($_POST["email_url_link"])) {
     $email = $_POST["email"];
     try {
         $client = new Client([
-            'base_uri' => "http://$server_name:9000/",
+            'base_uri' => "http://$server_name:8000/",
         ]);
         $headers = [
             'headers' => [
@@ -449,7 +449,7 @@ if (isset($_POST["email_url_expertise_image_pdf"]) || isset($_POST["email_url_im
     $email = $_POST["email"];
     try {
         $client = new Client([
-            'base_uri' => "http://$server_name:9000/",
+            'base_uri' => "http://$server_name:8000/",
         ]);
         $headers = [
             'headers' => [
@@ -522,7 +522,7 @@ if (isset($_POST["telegram_url_link"])) {
     $telegram_chat_id = $_POST["telegram_chat_id"];
     try {
         $client = new Client([
-            'base_uri' => "http://$server_name:9000/",
+            'base_uri' => "http://$server_name:8000/",
         ]);
         $headers = [
             'headers' => [
@@ -588,7 +588,7 @@ if (isset($_POST["telegram_url_expertise_image_pdf"]) || isset($_POST["telegram_
     $telegram_chat_id = $_POST["telegram_chat_id"];
     try {
         $client = new Client([
-            'base_uri' => "http://$server_name:9000/",
+            'base_uri' => "http://$server_name:8000/",
         ]);
         $headers = [
             'headers' => [
@@ -660,7 +660,7 @@ if (isset($_POST["telegram_url_expertise_image_pdf"]) || isset($_POST["telegram_
 if (isset($_POST["telegram_update_chatid"])) {
     try {
         $client = new Client([
-            'base_uri' => "http://$server_name:9000/",
+            'base_uri' => "http://$server_name:8000/",
         ]);
 
         $response = $client->request('GET', "telegram-update");

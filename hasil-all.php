@@ -26,7 +26,7 @@ $row = mysqli_fetch_assoc(mysqli_query(
     WHERE study.study_iuid = '$uid'
     ORDER BY study.study_datetime DESC"
 ));
-$pat_name = defaultValue($row['pat_name']);
+$pat_name = str_replace('_', ' ', defaultValue($row['pat_name']));
 $pat_sex = styleSex($row['pat_sex']);
 $pat_birthdate = defaultValueDate($row['pat_birthdate']);
 $age = diffDate($row['pat_birthdate']);

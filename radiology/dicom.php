@@ -19,8 +19,8 @@ $row_dokrad = mysqli_fetch_assoc(mysqli_query(
 ));
 $dokradid = $row_dokrad['dokradid'];
 
-$kondisi = "WHERE (xray_workload.status = 'waiting' AND xray_order.dokradid = '$dokradid' AND xray_order.priority = 'cito' AND study.study_datetime >= '2000-02-29')
-OR (xray_workload.status = 'waiting' AND xray_order.dokradid IS NULL AND xray_order.priority = 'cito' AND study.study_datetime >= '2000-02-29')
+$kondisi = "WHERE (xray_workload.status = 'waiting' AND xray_order.dokradid = '$dokradid' AND xray_order.priority = 'cito' AND study.study_datetime >= '2026-01-29')
+OR (xray_workload.status = 'waiting' AND xray_order.dokradid IS NULL AND xray_order.priority = 'cito' AND study.study_datetime >= '2026-01-29')
 ORDER BY xray_order.priority IS NULL, xray_order.priority ASC, study.study_datetime DESC 
 LIMIT 3000";
 
@@ -88,7 +88,27 @@ if ($_SESSION['level'] == "radiology") {
 											<input type="text" class="form-control" style="width: 115px; float: right;" id="mrn" placeholder="search MRN">
 											<input type="text" class="form-control" style="width: 115px; float: right; margin-right: 6px;" id="name" placeholder="search Name">
 										</div>
-										<?php include '../thead.php'; ?>
+										<tr>
+											<th>No</th>
+											<th>Action</th>
+											<th style="width: 70px;">Status</th>
+											<th><?= $lang['patient_name'] ?></th>
+											<th>MRN</th>
+											<th><?= $lang['study_date'] ?></th>
+											<th>No Foto</th>
+											<th><?= $lang['age'] ?></th>
+											<th><?= $lang['sex'] ?></th>
+											<th><?= $lang['study'] ?></th>
+											<th><?= $lang['study'] ?> Detail</th>
+											<th><?= $lang['modality'] ?></th>
+											<th><?= $lang['spc_needs'] ?></th>
+											<th><?= $lang['referral_physician'] ?></th>
+											<th><?= $lang['departmen'] ?></th>
+											<th><?= $lang['radiology_physician'] ?></th>
+											<th><?= $lang['radiographer'] ?></th>
+											<th><?= $lang['approve_date'] ?></th>
+											<th><?= $lang['spend_time'] ?></th>
+										</tr>
 									</thead>
 									<tbody>
 
@@ -153,6 +173,9 @@ if ($_SESSION['level'] == "radiology") {
 						},
 						{
 							"data": "mods_in_study"
+						},
+						{
+							"data": "spc_needs"
 						},
 						{
 							"data": "named"

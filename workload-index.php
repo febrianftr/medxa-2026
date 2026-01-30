@@ -34,7 +34,7 @@ $approved = mysqli_fetch_assoc(mysqli_query(
 	$query . ' WHERE DATE(approved_at) = CURRENT_DATE() AND status = "approved"'
 ));
 ?>
-<style>
+<!-- <style>
 	#purchase_order tbody tr {
 		cursor: pointer;
 	}
@@ -42,7 +42,7 @@ $approved = mysqli_fetch_assoc(mysqli_query(
 	#purchase_order tbody tr:hover {
 		background-color: #7fcbbb !important;
 	}
-</style>
+</style> -->
 <div class="col-12" style="padding: 0;">
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">

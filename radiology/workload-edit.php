@@ -44,7 +44,7 @@ $row = mysqli_fetch_assoc(mysqli_query(
     ON study.study_iuid = xray_workload.uid
 	WHERE study_iuid = '$uid'"
 ));
-$pat_name = defaultValue($row['pat_name']);
+$pat_name = str_replace('_', ' ', defaultValue($row['pat_name']));
 $pat_sex = styleSex($row['pat_sex']);
 $pat_birthdate = diffDate($row['pat_birthdate']);
 $study_iuid = defaultValue($row['study_iuid']);
@@ -336,7 +336,7 @@ if ($_SESSION['level'] == "radiology") {
 										</div>
 									</div>
 								</div>
-								<div class="col-lg-4 mb-3 padding-rl-nd">
+								<div class="col-lg-2 mb-3 padding-rl-nd">
 									<div class="table-box">
 										<div class="container-fluid">
 											<div class="row">
@@ -364,7 +364,7 @@ if ($_SESSION['level'] == "radiology") {
 													</div>
 												</div> -->
 												<div class="col-md-12"><label>Viewer :</label></div>
-												<div class="col-sm-6">
+												<div class="col-sm-12">
 													<!-- <a href="<?= LINKHOROSFIRST . $study_iuid . LINKHOROSLAST; ?>" class="btn-viewer-nd btn-ohif-nd mb-2">
 														<img src="../image/new/horos.png" style="width: 20px">
 														<p class="text-viewer-nd">Horos</p>
@@ -377,23 +377,24 @@ if ($_SESSION['level'] == "radiology") {
 														<img src="../image/new/inobitec.png" style="width: 20px">
 														<p class="text-viewer-nd">Inobitech</p>
 													</a> -->
-													<a href="<?= LINKHTMLFIRST . $study_iuid . LINKHTMLLAST; ?>" class="btn-viewer-nd btn-html-nd mb-2">
+													<!-- <a href="<?= LINKHTMLFIRST . $study_iuid . LINKHTMLLAST; ?>" class="btn-viewer-nd btn-html-nd mb-2">
 														<img src="../image/new/html-nd.svg" style="width: 20px">
 														<p class="text-viewer-nd">HTML</p>
-													</a>
-												</div>
-												<div class="col-sm-6">
-													<a href="<?= LINKOHIFNEWFIRST . $study_iuid . LINKOHIFNEWLAST; ?>" class="btn-viewer-nd btn-ohif-nd mb-2">
+													</a> -->
+													<a href="<?= LINKVIEWERCLINICFIRST . $study_iuid . LINKVIEWERCLINICLAST; ?>" class="btn-viewer-nd btn-ohif-nd mb-2">
 														<img src="../image/new/ohif-nd.svg" style="width: 20px">
 														<p class="text-viewer-nd">Web</p>
 													</a>
-
 												</div>
+												<!-- <div class="col-sm-6">
+													
+
+												</div> -->
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="col-lg-2 mb-3 padding-rl-nd">
+								<div class="col-lg-4 mb-3 padding-rl-nd">
 									<div class="table-box">
 										<div class="col-md-12">
 											<label>Information Patient :</label>
@@ -499,7 +500,7 @@ if ($_SESSION['level'] == "radiology") {
 													while ($template = mysqli_fetch_assoc($query_template)) { ?>
 														<thead class="myTable">
 															<td class="td1">
-																<a class="template_name" data-template-id="<?= $template['template_id']; ?>" value="<?= $template['fill']; ?>" href="<?= $file; ?>?uid=<?= $uid; ?>&template_id=<?= $template['template_id']; ?>"><?= $template['title']; ?></a>
+																<a class="template_name" data-template-id="<?= $template['template_id']; ?>" value='<?= $template['fill']; ?>' href="<?= $file; ?>?uid=<?= $uid; ?>&template_id=<?= $template['template_id']; ?>"><?= $template['title']; ?></a>
 															</td>
 															<td style="text-align: center;">
 																<a href="#" class="view-template" data-id="<?= $template['template_id'];  ?>">
@@ -522,7 +523,7 @@ if ($_SESSION['level'] == "radiology") {
 								<div class="col-md-9 padding-rl-nd">
 									<div class="table-box">
 										<!-- <div class="collapse" id="ohif"> -->
-										<iframe src="<?= "$urlnew$uid" ?>" frameborder="0" marginheight="0" marginwidth="0" width="100%" height="670px"></iframe>
+										<iframe src="<?= LINKVIEWERCLINICFIRST . $study_iuid . LINKVIEWERCLINICLAST; ?>" frameborder="0" marginheight="0" marginwidth="0" width="100%" height="670px"></iframe>
 										<!-- </div> -->
 										<br>
 										<!-- history pasien berdasarkan mrn pat_iid-->
@@ -555,7 +556,7 @@ if ($_SESSION['level'] == "radiology") {
 														<a href="<?= LINKPDFFIRST . $study_iuid . LINKPDFLAST; ?>" class="btn btn-pdf">
 															<i class="fas fa-file-pdf"></i> Expertise
 														</a>
-														<a href="<?= LINKOHIFNEWFIRST . $study_iuid . LINKOHIFNEWLAST; ?>" class="btn btn-image">
+														<a href="<?= LINKVIEWERCLINICFIRST . $study_iuid . LINKVIEWERCLINICLAST; ?>" class="btn btn-image">
 															<i class="fas fa-image"></i> Web Viewer
 														</a>
 													</div>
