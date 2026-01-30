@@ -65,9 +65,9 @@ $hostname = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM xray_hostname_
             </table>
             <hr>
             <?php if ($_SERVER['SERVER_NAME'] == $hostname['ip_publik'] or $_SERVER['SERVER_NAME'] == '49.128.176.141') {
-                $port = '20012';
+                $port = '82';
             } else {
-                $port = '91';
+                $port = '81';
             } ?>
             <iframe src="http://<?= $_SERVER['SERVER_NAME'] . ':' ?><?= $port  ?>/viewer/<?= $study['study_iuid']; ?>" width="100%" height="700px" frameborder="0"></iframe>
             <!-- <iframe src="http://202.150.157.78:92/viewer/1.2.40.0.13.1.286424.20230127.09161597301" width="100%" height="700px" frameborder="0"></iframe> -->
