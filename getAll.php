@@ -38,9 +38,9 @@ if ($dicom == '/dicom.php') {
     // (dicom.php) berdasarkan priority CITO, updated_time DESC.
     // kondisi ketika bridging simrs status waiting dan dokradid simrs (xray_order).
     // OR kondisi ketika bridging simrs dokter radiologi is null atau pasien manual (tidak integrasi simrs). 
-    $kondisi = "WHERE (xray_workload.status = 'waiting' AND xray_order.dokradid = '$dokradid' AND study.study_datetime >= '2026-01-01')
+    $kondisi = "WHERE (xray_workload.status = 'waiting' AND xray_order.dokradid = '$dokradid' AND study.study_datetime >= '2026-01-29')
                 OR (xray_workload.status = 'waiting' AND xray_order.dokradid IS NULL)
-                AND study.study_datetime >= '2026-01-01'
+                AND study.study_datetime >= '2026-01-29'
                 ORDER BY xray_order.priority IS NULL, xray_order.priority ASC, study.study_datetime DESC 
                 LIMIT 3000";
 } else {
