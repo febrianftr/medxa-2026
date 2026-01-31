@@ -133,7 +133,7 @@ function insert_workload($value)
 		ON xray_order.uid = xray_workload.uid
 		WHERE study.study_iuid = '$uid'"
 	));
-	$pat_name = str_replace('_', ' ', defaultValue($row['pat_name']));
+	$pat_name = defaultValue($row['pat_name']);
 	$pat_id = defaultValue($row['pat_id']);
 	$study_desc = defaultValue($row['study_desc']);
 	$study_datetime = defaultValueDateTime($row['study_datetime']);

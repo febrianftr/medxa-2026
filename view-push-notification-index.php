@@ -35,7 +35,7 @@ $row = mysqli_fetch_assoc(mysqli_query(
 ));
 
 // ----------------
-$pat_name = str_replace('_', ' ', removeCharacter(str_replace('^^^^', '', defaultValue($row['pat_name']))));
+$pat_name = removeCharacter(str_replace('^^^^', '', defaultValue($row['pat_name'])));
 $pat_sex = defaultValue($row['pat_sex']);
 $pat_sex_style = styleSex($row['pat_sex']);
 $pat_birthdate = $row['pat_birthdate'] == null ? '' : date('d-m-Y', strtotime($row['pat_birthdate']));

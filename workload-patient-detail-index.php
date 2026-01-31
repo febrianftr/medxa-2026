@@ -373,7 +373,7 @@ if (isset($_POST["save_copy_series"])) {
             if (mysqli_num_rows($query) > 0) {
                 while ($row = mysqli_fetch_assoc($query)) {
                     $pk_study = $row['pk_study'];
-                    $pat_name = str_replace('_', ' ', defaultValue(removeCharacter($row['pat_name'])));
+                    $pat_name = defaultValue(removeCharacter($row['pat_name']));
                     $pat_sex = styleSex($row['pat_sex']);
                     $pat_birthdate = defaultValueDate($row['pat_birthdate']);
                     $age = diffDate($row['pat_birthdate']);

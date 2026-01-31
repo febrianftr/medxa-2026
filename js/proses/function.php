@@ -30,7 +30,7 @@ function expertise($uidInput)
 		WHERE study.study_iuid = '$uid'"
     ));
     
-    $pat_name = str_replace('_', ' ', substr(removeCharacter(ucwords(strtolower(defaultValue($row['pat_name'])))), 0, 23));
+    $pat_name = substr(removeCharacter(ucwords(strtolower(defaultValue($row['pat_name'])))), 0, 23);
     $pat_sex = $row['pat_sex'];
     $pat_birthdate = $row['pat_birthdate'];
     $age = diffDate($pat_birthdate);

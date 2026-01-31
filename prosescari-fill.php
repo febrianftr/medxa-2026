@@ -143,7 +143,7 @@ $result = mysqli_query($conn_pacsio, $query . $query1);
 $data = array();
 $i = 1;
 while ($row = mysqli_fetch_array($result)) {
-  $pat_name = str_replace('_', ' ', defaultValue($row['pat_name']));
+  $pat_name = defaultValue($row['pat_name']);
 
   $study_iuid = defaultValue($row['study_iuid']);
   $mods_in_study = defaultValue($row['mods_in_study']);

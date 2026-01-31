@@ -44,7 +44,7 @@ $row = mysqli_fetch_assoc(mysqli_query(
     ON xray_order.uid = xray_workload.uid
 	WHERE study_iuid = '$uid'"
 ));
-$pat_name = str_replace('_', ' ', defaultValue($row['pat_name']));
+$pat_name = defaultValue($row['pat_name']);
 $pat_sex = styleSex($row['pat_sex']);
 $pat_birthdate = diffDate($row['pat_birthdate']);
 $study_iuid = defaultValue($row['study_iuid']);
