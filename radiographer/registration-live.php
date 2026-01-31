@@ -294,7 +294,7 @@ if ($_SESSION['level'] == "radiographer") {
                                 <span class="checkmark"></span>
                               </label>
                               <br><br>
-                              <!-- special needs -->
+                              <!-- Klinis -->
                               <label style="font-weight: bold;" for="spc_needs"><b><?= $lang['spc_needs'] ?></b></label><br>
                               <textarea rows="4" cols="50" type="text" name="spc_needs" id="spc_needs" style="width: 315; height: 90px;"></textarea><br><br>
                               <!-- from order -->

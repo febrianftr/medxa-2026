@@ -310,7 +310,7 @@ if ($_SESSION['level'] == "radiology") {
 													<div class="info-value-nd"><?= $pat_birthdate; ?></div>
 												</div>
 												<div class="info-col-nd">
-													<div class="info-label-nd">Special Needs</div>
+													<div class="info-label-nd">Klinis</div>
 													<div class="info-value-nd"><?= $spc_needs; ?></div>
 												</div>
 												<div class="info-col-nd">

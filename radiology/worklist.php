@@ -325,7 +325,7 @@ if ($_SESSION['level'] == "radiology") {
 													<div class="info-value-nd"><?= $pat_birthdate; ?></div>
 												</div>
 												<div class="info-col-nd">
-													<div class="info-label-nd">Special Needs</div>
+													<div class="info-label-nd">Klinis</div>
 													<div class="info-value-nd"><?= $spc_needs; ?></div>
 												</div>
 												<div class="info-col-nd">
@@ -428,7 +428,7 @@ if ($_SESSION['level'] == "radiology") {
 										</div>
 									</div>
 								</div>
-								<div class="col-lg-3 mb-3 padding-rl-nd">
+								<div class="col-lg-5 mb-3 padding-rl-nd">
 									<div class="table-box">
 
 										<div class="padding-rl-less">
@@ -535,7 +535,7 @@ if ($_SESSION['level'] == "radiology") {
 									</div>
 								</div>
 
-								<div class="col-md-9 padding-rl-nd">
+								<div class="col-md-7 padding-rl-nd">
 									<div class="table-box">
 										<!-- <div class="collapse" id="ohif"> -->
 										<iframe src="<?= LINKVIEWERCLINICFIRST . $study_iuid . LINKVIEWERCLINICLAST; ?>" frameborder="0" marginheight="0" marginwidth="0" width="100%" height="670px"></iframe>
@@ -688,6 +688,16 @@ if ($_SESSION['level'] == "radiology") {
 			</div>
 			<!-- SCRIPT -->
 			<?php include('script-footer.php'); ?>
+			<script>
+$(function () {
+    // Force collapsed only on this page (desktop only)
+    if ($(window).width() > 768) {
+        $("#sidebar1").addClass("collapsed1");
+        $("#content2").addClass("full1");
+        $("#sidebarToggle").addClass("collapsed1");
+    }
+});
+</script>
 			<script>
 				$(document).ready(function() {
 					$("li[id='worklist1']").addClass("active");

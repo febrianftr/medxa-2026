@@ -188,7 +188,7 @@ Contact us at (Office) +62-21-4532648</p>",
 	"update_time" => "Update Time",
 	"create_time" => "Create Time",
 	"your_worklist" => "Your Worklist",
-	"spc_needs" => "Special Needs",
+	"spc_needs" => "Klinis",
 	"arrive_date" => "Arrive Date",
 	"exam_date" => "Exam Date Time",
 

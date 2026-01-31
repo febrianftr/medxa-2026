@@ -12,7 +12,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 session_start();
 $uid = $_GET['uid'];
-$ipLokal = $_SERVER['SERVER_ADDR'];
+$ipLokal = "192.168.133.9";
 $ipDirect = $_SERVER['SERVER_NAME'];
 $level = $_SESSION['level'];
 
@@ -266,11 +266,12 @@ if ($_SESSION['level'] == "radiographer") {
                                         "SELECT series_desc, series_iuid, body_part, num_instances FROM series WHERE series.study_fk = '$pk_study'"
                                     );
                                     while ($row = mysqli_fetch_assoc($sql)) { ?>
+                                    
                                         <label class="radio-admin">
                                             <input type="checkbox" class="check-series-iuid" name="series_iuid[]" id="series_iuid[]" value="<?= $row['series_iuid']; ?>"><?= $row['series_desc'] . ' / ' . $row['body_part'] . ' / ' . $row['num_instances']; ?>
                                             <br><img src="http://<?= $ipDirect; ?>:9090/dcm4chee-arc/aets/DCM4CHEE/wado?requestType=WADO&studyUID=<?= $uid; ?>&seriesUID=<?= $row['series_iuid']; ?>" alt="" width="200">
                                             <span class="checkmark"></span>
-                                        </label><br><br>
+                                            </label><br><br>
                                     <?php } ?>
                                     <hr>
                                     <a class="btn btn-info btn-md" href="workload.php" style="border-radius: 5px; box-shadow:none">Back</a>

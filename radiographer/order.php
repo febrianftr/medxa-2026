@@ -241,7 +241,7 @@ if ($_SESSION['level'] == "radiographer") {
           <span class="checkmark"></span></label>
           <input type="text" name="other_payment" placeholder="Masukan jenis asuransi.."> -->
                       <br>
-                      <label for="spc_needs"><b>Special Needs</b></label><br>
+                      <label for="spc_needs"><b>Klinis</b></label><br>
                       <textarea rows="4" cols="50" type="text" name="spc_needs" id="spc_needs" style="width: 315; height: 90px;"></textarea><br><br>
 
                       <button class="button button1" type="submit" name="submit">Order</button>
