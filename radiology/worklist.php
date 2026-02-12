@@ -392,13 +392,14 @@ if ($_SESSION['level'] == "radiology") {
 														<img src="../image/new/inobitec.png" style="width: 20px">
 														<p class="text-viewer-nd">Inobitech</p>
 													</a> -->
-													<!-- <a href="<?= LINKHTMLFIRST . $study_iuid . LINKHTMLLAST; ?>" class="btn-viewer-nd btn-html-nd mb-2">
-														<img src="../image/new/html-nd.svg" style="width: 20px">
-														<p class="text-viewer-nd">HTML</p>
-													</a> -->
+													
 													<a href="<?= LINKVIEWERCLINICFIRST . $study_iuid . LINKVIEWERCLINICLAST; ?>" class="btn-viewer-nd btn-ohif-nd mb-2">
 														<img src="../image/new/ohif-nd.svg" style="width: 20px">
 														<p class="text-viewer-nd">Web</p>
+													</a>
+													<a href="<?= LINKHTMLFIRST . $study_iuid . LINKHTMLLAST; ?>" class="btn-viewer-nd btn-html-nd mb-2">
+														<img src="../image/new/html-nd.svg" style="width: 20px">
+														<p class="text-viewer-nd">HTML</p>
 													</a>
 												</div>
 												<!-- <div class="col-sm-6">
