@@ -5,6 +5,7 @@ require 'model/query-base-workload.php';
 require 'model/query-base-study.php';
 require 'model/query-base-patient.php';
 require 'default-value.php';
+require 'viewer-all.php';
 
 @$uid = $_GET['uid'];
 
@@ -69,7 +70,7 @@ $hostname = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM xray_hostname_
             } else {
                 $port = '81';
             } ?>
-            <iframe src="http://<?= $_SERVER['SERVER_NAME'] . ':' ?><?= $port  ?>/viewer/<?= $study['study_iuid']; ?>" width="100%" height="700px" frameborder="0"></iframe>
+            <iframe src="<?= LINKVIEWERMOBILEFIRST . $study_iuid . LINKVIEWERMOBILELAST; ?>" width="100%" height="700px" frameborder="0"></iframe>
             <!-- <iframe src="http://202.150.157.78:92/viewer/1.2.40.0.13.1.286424.20230127.09161597301" width="100%" height="700px" frameborder="0"></iframe> -->
         <?php } else { ?>
             <p class="text-center">Expired</p>
