@@ -96,7 +96,7 @@
 <link href="../css/mdb.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/dataTables.min.css">
 <link rel="stylesheet" href="css/jquery-ui.css" />
-<link rel="icon" href="../image/ipi-icon3.png" type="image/png">
+<link rel="icon" href="../image/ipi-icon3.ico" type="image/png">
 <link rel="stylesheet" href="fontawesome/css/all.css">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" media="screen" href="css/jquery.datetimepicker.min.css">

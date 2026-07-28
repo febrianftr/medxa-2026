@@ -736,3 +736,13 @@
 
     });
 </script>
+
+
+<script>
+    $(document).ready(function() {
+        $('.arrow-sidebar').on('click', function() {
+            // Toggle class 'collapsed' pada button atau icon
+            $(this).find('.icon-sidebar').toggleClass('rotate-180');
+        });
+    });
+</script>

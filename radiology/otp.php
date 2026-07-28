@@ -52,7 +52,7 @@ if (isset($_POST["login"])) {
     <link rel="stylesheet" href="css/ionicons.min.css">
 
     <!-- <link rel="stylesheet" type="text/css" href="css/styles.css" /> -->
-    <link rel="icon" href="image/ipi-icon3.png" type="image/png">
+    <link rel="icon" href="image/ipi-icon3.ico" type="image/png">
     <link rel="stylesheet" href="fontawesome/css/all.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <!-- <link rel="stylesheet" href="../fontawesome/css/all.css"> -->

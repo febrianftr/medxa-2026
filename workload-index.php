@@ -50,67 +50,106 @@ $approved = mysqli_fetch_assoc(mysqli_query(
 		</ol>
 	</nav>
 </div>
-<div class="container-fluid mb-3">
+
+<style>
+	/* Custom Card Style */
+	.dash-card {
+		background: linear-gradient(0deg, #09090b 0%, #1c1c1c 100%);
+		border-radius: 24px;
+		padding: 20px;
+		color: #ffffff;
+		transition: transform 0.2s ease, box-shadow 0.2s ease;
+		position: relative;
+		overflow: hidden;
+	}
+
+	/* Judul Card */
+	.dash-card-title {
+		color: #a0a5b5;
+		/* Warna teks abu-abu redup */
+		font-size: 0.95rem;
+		font-weight: 500;
+	}
+
+	/* Ikon Tiga Titik Options */
+	.dash-card-more {
+		color: #a0a5b5;
+		width: 22px;
+	}
+
+	.dash-card-more:hover {
+		color: #ffffff;
+	}
+
+	/* Angka Utama */
+	.dash-card-value {
+		font-size: 2rem;
+		font-weight: 700;
+		letter-spacing: 0.5px;
+		margin-bottom: 12px;
+	}
+
+	/* Teks Sub/Tren Keterangan */
+	.dash-card-sub {
+		color: #a0a5b5;
+		font-size: 0.85rem;
+		display: flex;
+		align-items: center;
+		gap: 6px;
+	}
+
+	.dash-card-sub i {
+		font-size: 0.9rem;
+	}
+</style>
+<div class="container-fluid">
 	<div class="row">
-		<div class="col-md-4">
-			<div class="card like-card d-flex align-items-center justify-content-between mx-auto">
-				<div class="like-left d-flex align-items-center">
-					<img src="../image/new/users-nd.svg" style="width: 45px;">
-					<span>Today Studies</span>
+		<div class="col-md-4 mb-3">
+			<div class="dash-card">
+				<div class="d-flex justify-content-between align-items-center mb-3">
+					<span class="dash-card-title">Total Today Studies</span>
+					<img class="dash-card-more" src="../image/new/users.svg">
+					<!-- <i class="fas fa-ellipsis-h dash-card-more"></i> -->
 				</div>
-				<div class="like-count"> <?= $total['total'] ?></div>
+				<div class="dash-card-value"><?= $total['total'] ?></div>
+				<!-- <div class="dash-card-sub">
+					<i class="fas fa-chart-line"></i>
+					<span>+2% from last quarter</span>
+				</div> -->
 			</div>
 		</div>
-		<div class="col-md-4">
-			<div class="card like-card d-flex align-items-center justify-content-between mx-auto">
-				<div class="like-left d-flex align-items-center">
-					<img src="../image/new/check-nd.svg" style="width: 30px; margin-right: 10px;">
-					<span>Approved</span>
+
+		<div class="col-md-4 mb-3">
+			<div class="dash-card">
+				<div class="d-flex justify-content-between align-items-center mb-3">
+					<span class="dash-card-title">Today Approved</span>
+					<img class="dash-card-more" src="../image/new/checkmark.svg">
+					<!-- <i class="fas fa-ellipsis-h dash-card-more"></i> -->
 				</div>
-				<div class="like-count"><?= $approved['total']; ?></div>
+				<div class="dash-card-value"><?= $approved['total']; ?></div>
+				<!-- <div class="dash-card-sub">
+					<i class="fas fa-chart-line"></i>
+					<span>+15% from last quarter</span>
+				</div> -->
 			</div>
 		</div>
-		<div class="col-md-4">
-			<div class="card like-card d-flex align-items-center justify-content-between mx-auto">
-				<div class="like-left d-flex align-items-center">
-					<img src="../image/new/clock-nd.svg" style="width: 25px; margin-right: 10px;">
-					<span>Waiting</span>
+
+		<div class="col-md-4 mb-3">
+			<div class="dash-card">
+				<div class="d-flex justify-content-between align-items-center mb-3">
+					<span class="dash-card-title">Today Waiting</span>
+					<img class="dash-card-more" src="../image/new/waiting.svg">
+					<!-- <i class="fas fa-ellipsis-h dash-card-more"></i> -->
 				</div>
-				<div class="like-count"><?= $waiting['total']; ?></div>
+				<div class="dash-card-value"><?= $waiting['total']; ?></div>
+				<!-- <div class="dash-card-sub">
+					<i class="fas fa-chart-line"></i>
+					<span>+2% from last quarter</span>
+				</div> -->
 			</div>
 		</div>
 	</div>
 </div>
-
-<!-- <div class="dropdown custom-dropdown1 dropright">
-	<button class="btn filter-btn2 dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		Action
-	</button>
-	<div class="dropdown-menu dropdown-menu-right dropdown-menu1" aria-labelledby="dropdownMenuButton1">
-		<h6 class="dropdown-title1">Expertise</h6>
-		<a class="dropdown-item dropdown-item1" href="#"><i class="fas fa-file-alt"></i> PDF Expertise</a>
-		<a class="dropdown-item dropdown-item1" href="#"><i class="fas fa-edit"></i> Edit Expertise</a>
-		<div class="dropdown-divider"></div>
-		<h6 class="dropdown-title1">Viewer</h6>
-		<a class="dropdown-item dropdown-item1" href="#"><i class="fas fa-x-ray"></i>Viewer Radiant</a>
-		<a class="dropdown-item dropdown-item1" href="#"><i class="fas fa-x-ray"></i>Viewer Inobitect</a>
-		<a class="dropdown-item dropdown-item1" href="#"><i class="fas fa-x-ray"></i>Viewer Horos</a>
-		<a class="dropdown-item dropdown-item1" href="#"><i class="fas fa-x-ray"></i>Viewer Web</a>
-		<a class="dropdown-item dropdown-item1" href="#"><i class="fas fa-x-ray"></i>Viewer HTML</a>
-		<div class="dropdown-divider"></div>
-		<h6 class="dropdown-title1"> Patient</h6>
-		<a class="dropdown-item dropdown-item1" href="#"><i class="fas fa-user-edit"></i> Edit Patient</a>
-		<a class="dropdown-item dropdown-item1" href="#"><i class="fas fa-user-check"></i> Edit Patient</a>
-		<a class="dropdown-item dropdown-item1" href="#"><i class="fas fa-user-nurse"></i> Choose phycisian</a>
-		<a class="dropdown-item dropdown-item1" href="#"><i class="fas fa-history"></i>Edit Expired Date</a>
-		<a class="dropdown-item dropdown-item1" href="#"><i class="fas fa-link"></i>Copy Link</a>
-		<a class="dropdown-item dropdown-item1" href="#"><i class="far fa-list-alt"></i>Choose Series</a>
-		<a class="dropdown-item dropdown-item1" href="#"><i class="fas fa-share-alt-square"></i>Send Image to..</a>
-	</div>
-</div> -->
-
-
-
 
 <div class="table-view">
 	<div class="col-md-12 table-box" style="overflow-x:auto;  position: relative;  padding-top: 50px; height: 300vh;">

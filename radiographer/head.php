@@ -9,7 +9,7 @@ require '../random.php';
 <link rel="stylesheet" type="text/css" href="../css/dataTables.bootstrap4.min.css">
 <!-- <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap4.min.css"> -->
 <link rel="stylesheet" href="css/jquery-ui.css" />
-<link rel="icon" href="../image/ipi-icon3.png" type="image/png">
+<link rel="icon" href="../image/ipi-icon3.ico" type="image/png">
 <link rel="stylesheet" href="../fontawesome/css/all.css?v=<?= $random; ?>">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" media="screen" href="css/jquery.datetimepicker.min.css">

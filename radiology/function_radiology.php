@@ -154,7 +154,7 @@ function insert_workload($value)
 		4
 	);
 	$QR2 = imagecreatefrompng("phpqrcode/ttddokter/$uid.png");
-	$logopath2 = '..\\image\ipi-icon3.png';
+	$logopath2 = '..\\image\ipi-icon3.ico';
 	// memulai menggambar logo dalam file qrcode
 	$logo2 = imagecreatefromstring(file_get_contents($logopath2));
 	imagecolortransparent($logo2, imagecolorallocatealpha($logo2, 0, 0, 0, 127));
@@ -176,7 +176,7 @@ function insert_workload($value)
 	$hasilPasien = $hostname['ip_publik'] == null ? 'Domain Tidak Ditemukan! Silahkan input domain RS pada aplikasi RIS' : "http://$hostname[ip_publik]:8089/$link[link_simrs_expertise]/pasien.php?uid=$uid";
 	QRcode::png($hasilPasien, "phpqrcode/hasil-pasien/$uid.png", "L", 4, 4);
 	$QR = imagecreatefrompng("phpqrcode/hasil-pasien/$uid.png");
-	$logopath = '..\\image\ipi-icon3.png';
+	$logopath = '..\\image\ipi-icon3.ico';
 	// memulai menggambar logo dalam file qrcode
 	$logo = imagecreatefromstring(file_get_contents($logopath));
 	imagecolortransparent($logo, imagecolorallocatealpha($logo, 0, 0, 0, 127));

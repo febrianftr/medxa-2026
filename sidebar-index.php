@@ -1,19 +1,140 @@
 <!-- ------loader------ -->
-<div class="disokin">
-    <div class="spinner">
-        <div class="loader-nd"></div>
-    </div>
-</div>
-<!-- ------loader------ -->
-
-
 <style>
-    .user-session-id {
-        font-weight: bold;
-        text-align: left;
-        padding-left: 17px;
+    /* style-loader */
+
+    .loader {
+        width: 160px;
+        height: 50px;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+        /* Memastikan loader berada di paling depan */
+    }
+
+    .loader-text {
+        position: absolute;
+        top: 0;
+        padding: 0;
+        margin: 0;
+        color: #179E87;
+        animation: text_713 1.5s ease both infinite;
+        font-size: .8rem;
+        letter-spacing: 1px;
+    }
+
+    .load {
+        background-color: #D7E022;
+        border-radius: 50px;
+        display: block;
+        height: 16px;
+        width: 16px;
+        bottom: 0;
+        position: absolute;
+        transform: translateX(64px);
+        animation: loading_713 1.5s ease both infinite;
+    }
+
+    .load::before {
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 100%;
+        background-color: #fbffa6;
+        border-radius: inherit;
+        animation: loading2_713 1.5s ease both infinite;
+    }
+
+    @keyframes text_713 {
+        0% {
+            letter-spacing: 1px;
+            transform: translateX(0px);
+        }
+
+        40% {
+            letter-spacing: 2px;
+            transform: translateX(26px);
+        }
+
+        80% {
+            letter-spacing: 1px;
+            transform: translateX(32px);
+        }
+
+        90% {
+            letter-spacing: 2px;
+            transform: translateX(0px);
+        }
+
+        100% {
+            letter-spacing: 1px;
+            transform: translateX(0px);
+        }
+    }
+
+    @keyframes loading_713 {
+        0% {
+            width: 16px;
+            transform: translateX(0px);
+        }
+
+        40% {
+            width: 100%;
+            transform: translateX(0px);
+        }
+
+        80% {
+            width: 16px;
+            transform: translateX(64px);
+        }
+
+        90% {
+            width: 100%;
+            transform: translateX(0px);
+        }
+
+        100% {
+            width: 16px;
+            transform: translateX(0px);
+        }
+    }
+
+    @keyframes loading2_713 {
+        0% {
+            transform: translateX(0px);
+            width: 16px;
+        }
+
+        40% {
+            transform: translateX(0%);
+            width: 80%;
+        }
+
+        80% {
+            width: 100%;
+            transform: translateX(0px);
+        }
+
+        90% {
+            width: 80%;
+            transform: translateX(15px);
+        }
+
+        100% {
+            transform: translateX(0px);
+            width: 16px;
+        }
     }
 </style>
+<div class="disokin">
+    <div class="loader">
+        <span class="loader-text"><img src="../image/logo-sidebar2.png" style="width: 110px;"></span>
+        <span class="load"></span>
+    </div>
+
+</div>
+<!-- ------loader------ -->
 
 
 <?php include "../bahasa.php"; ?>
@@ -26,11 +147,17 @@
         overflow-x: hidden;
     }
 
+    .user-session-id {
+        font-weight: bold;
+        text-align: left;
+        padding-left: 17px;
+    }
+
     /* Sidebar */
     #sidebar1 {
         width: 250px;
-        background-color: #26282c;
-        border-right: 1px solid #333;
+        background-color: #242527;
+        /* border-right: 1px solid #0D9488; */
         position: fixed;
         top: 0;
         bottom: 0;
@@ -41,7 +168,7 @@
         display: flex;
         flex-direction: column;
         height: 100vh;
-        color: #848484;
+        color: #F8F9FA;
     }
 
     .sidebar-footer1 {
@@ -61,7 +188,7 @@
     }
 
     .sidebar-footer1 .menu-item1:hover {
-        color: #77a9df !important;
+        color: #d8b4e0 !important;
         font-weight: bold;
     }
 
@@ -76,10 +203,10 @@
     }
 
     #sidebar1 .sidebar-header {
-        padding: 20px;
+        padding: 20px 20px 12px 20px;
         font-size: 18px;
         font-weight: bold;
-        border-bottom: 1px solid #333;
+        border-bottom: 1px solid #191A1C;
     }
 
     #sidebar1 ul {
@@ -108,7 +235,7 @@
     #sidebar1 ul .submenu1 {
         display: none;
         padding-left: 20px;
-        border-left: 2px solid #333;
+        border-left: 2px solid #EEE;
         /* ✅ garis vertikal di kiri submenu */
         margin-left: 5px;
         margin-top: 11px;
@@ -165,8 +292,8 @@
         top: 7px;
         left: 260px;
         /* desktop default: next to sidebar */
-        background: #aeaeae2e;
-        color: #fff;
+        background: #2f4b682e;
+        color: #2f2f2f;
         border: none;
         border-radius: 5px;
         padding: 8px 12px;
@@ -218,8 +345,8 @@
         padding: 6px 14px;
         margin-top: 10px;
         border: none;
-        background-color: #363636;
-        color: #6f6f6f;
+        background-color: #f0f0f0;
+        color: #242527;
     }
 
     .sidebar-search1 {
@@ -252,13 +379,23 @@
     .search-input1:focus {
         border-color: unset;
         box-shadow: unset;
-        background-color: #3c3939;
+        /* background-color: #3c3939; */
         border-color: unset;
     }
 
     .icon-sidebar {
         width: 20px;
         margin-right: 6px;
+    }
+
+
+    .icon-sidebar {
+        transition: transform 0.3s ease;
+        /* Memberikan efek animasi berputar yang halus */
+    }
+
+    .rotate-180 {
+        transform: rotate(180deg);
     }
 </style>
 
@@ -268,21 +405,27 @@
 <!-- Sidebar -->
 <nav id="sidebar1">
     <div class="sidebar-header">
-        <img src="../image/ndk-sidebar2.png" style="width: 110px;">
+        <img src="../image/logo-sidebar2.png" style="width: 110px;">
         <!-- Input search -->
-        <div class="sidebar-search1">
-            <img src="../image/new/search-nd.svg" alt="Search" class="search-img1">
+        <label style="color: darkgray; font-size: 9px; margin-top: 3px;">Radiologi Information System</label>
+        <!-- <div class="sidebar-search1">
+            <img src="../image/new/search-menu.svg" alt="Search" class="search-img1">
             <input type="text" id="searchMenu1" class="form-control form-control-sm search-input1" placeholder="Search menu" autocomplete="off">
-        </div>
+        </div> -->
     </div>
+
+    <?php
+    // 1. Deteksi nama file saat ini
+    $current_page = basename($_SERVER['PHP_SELF']);
+    ?>
 
 
 
     <ul>
         <?php if ($_SESSION['level'] == 'radiology') { ?>
-            <div class="menu-item1">
+            <div class="menu-item1 <?php echo ($current_page == 'index.php') ? 'active' : ''; ?>">
                 <a href="index.php">
-                    <li><img class="icon-sidebar" src="../image/new/dashboard-nd.svg">Dashboard</li>
+                    <li><img class="icon-sidebar" src="../image/new/home.svg">Dashboard</li>
                 </a>
             </div>
         <?php } ?>
@@ -290,22 +433,22 @@
 
         <!-- =================SIDEBAR RADIOGRAPHER====================== -->
         <?php if ($_SESSION['level'] == 'radiographer') { ?>
-            <div class="menu-item1">
+            <div class="menu-item1 <?php echo ($current_page == 'workload.php') ? 'active' : ''; ?>">
                 <a href="workload.php">
-                    <li><img class="icon-sidebar" src="../image/new/dashboard-nd.svg">Dashboard</li>
+                    <li><img class="icon-sidebar" src="../image/new/home.svg">Dashboard</li>
                 </a>
             </div>
 
-            <li class="menu-item1">
-                <a href="#" class="products1"><img class="icon-sidebar" src="../image/new/patient-nd.svg"> Order <i class="fas fa-chevron-down float-right"></i></a>
+            <li class="menu-item1 <?php echo ($current_page == 'registration.php' || $current_page == 'order2.php' || $current_page == 'exam2.php') ? 'active' : ''; ?>">
+                <a href="#" class="products1"><img class="icon-sidebar" src="../image/new/patient.svg"> Order <i class="fas fa-chevron-down float-right"></i></a>
                 <ul class="submenu1">
                     <li id="regist1"><a href="registration.php">New Registration</a></li>
                     <li id="order3"><a href="order2.php"><?= $lang['all_order'] ?></a></li>
                     <li id="exam3"><a href="exam2.php"><?= $lang['examroom'] ?></a></li>
                 </ul>
             </li>
-            <li class="menu-item1">
-                <a href="#" class="services"><img class="icon-sidebar" src="../image/new/report-nd.svg"> Other <i class="fas fa-chevron-down float-right"></i></a>
+            <li class="menu-item1 <?php echo ($current_page == 'report.php' || $current_page == 'workload-fill.php' || $current_page == 'storage.php') ? 'active' : ''; ?>">
+                <a href="#" class="services"><img class="icon-sidebar" src="../image/new/book.svg"> Other <i class="fas fa-chevron-down float-right"></i></a>
                 <ul class="submenu1">
                     <li id="report1"><a href="report.php"><?= $lang['download_excel'] ?></a></li>
                     <li id="expertise-history"><a href="workload-fill.php">Expertise History</a></li>
@@ -313,7 +456,7 @@
                 </ul>
             </li>
 
-            <!-- <div class="menu-item1">
+            <!-- <div class="menu-item1 <?php echo ($current_page == 'recycle-bin.php') ? 'active' : ''; ?>">
                 <a href="recycle-bin.php">
                     <li> <img class="icon-sidebar" src="../image/new/trash-nd.svg"> Recycle Bin</li>
                 </a>
@@ -321,13 +464,13 @@
         <?php } ?><!-- =================END OF SIDEBAR RADIOGRAPHER====================== -->
 
         <?php if ($_SESSION['level'] == 'radiology') { ?>
-            <div class="menu-item1">
+            <div class="menu-item1 <?php echo ($current_page == 'dicom.php') ? 'active' : ''; ?>">
                 <a href="dicom.php">
-                    <li> <img class="icon-sidebar" src="../image/new/worklist-nd.svg"> Worklist</li>
+                    <li> <img class="icon-sidebar" src="../image/new/patient.svg"> Worklist</li>
                 </a>
             </div>
-            <li class="menu-item1">
-                <a href="#" class="services"><img class="icon-sidebar" src="../image/new/report-nd.svg"> <?= $lang['report'] ?> <i class="fas fa-chevron-down float-right"></i></a>
+            <li class="menu-item1 <?php echo ($current_page == 'workload.php' || $current_page == 'report.php' || $current_page == 'workload-fill.php' || $current_page == 'query.php') ? 'active' : ''; ?>">
+                <a href="#" class="services"><img class="icon-sidebar" src="../image/new/patient.svg"> <?= $lang['report'] ?> <i class="fas fa-chevron-down float-right"></i></a>
                 <ul class="submenu1">
                     <li id="workload1"><a href="workload.php">Expertise Approved</a></li>
                     <li id="report1"><a href="report.php"><?= $lang['download_excel'] ?></a></li>
@@ -335,8 +478,8 @@
                     <li id="query"><a href="query.php">Query</a></li>
                 </ul>
             </li>
-            <li class="menu-item1">
-                <a href="#" class="services"><img class="icon-sidebar" src="../image/new/template-nd.svg"></i> Template Expertise <i class="fas fa-chevron-down float-right"></i></a>
+            <li class="menu-item1 <?php echo ($current_page == 'new_template.php' || $current_page == 'view_template.php') ? 'active' : ''; ?>">
+                <a href="#" class="services"><img class="icon-sidebar" src="../image/new/book.svg"></i> Template Expertise <i class="fas fa-chevron-down float-right"></i></a>
                 <ul class="submenu1">
                     <li id="newt1"><a href="new_template.php">New Template</a></li>
                     <li id="viewt1"><a href="view_template.php">View Template</a></li>
@@ -346,35 +489,32 @@
 
         <?php if ($_SESSION['level'] == 'refferal') { ?>
             <script type="text/javascript" src="js/jquery.min.js"></script>
-            <!-- <div class="menu-item1">
+            <!-- <div class="menu-item1 <?php echo ($current_page == 'workload-fill.php') ? 'active' : ''; ?>">
                 <a href="workload-fill.php">
                     <li><img class="icon-sidebar" src="../image/new/history-nd.svg">Expertise History</li>
                 </a>
             </div> -->
-            <div class="menu-item1">
+            <div class="menu-item1 <?php echo ($current_page == 'workload.php') ? 'active' : ''; ?>">
                 <a href="workload.php">
-                    <li><img class="icon-sidebar" src="../image/new/query-nd.svg"> Query</li>
+                    <li><img class="icon-sidebar" src="../image/new/home.svg"> Query</li>
                 </a>
             </div>
         <?php } ?><!-- =================END OF SIDEBAR REFFERAL====================== -->
-        <hr>
+        <div class="menu-item1 <?php echo ($current_page == 'settings.php') ? 'active' : ''; ?>">
+            <a href="settings.php">
+                <li><img class="icon-sidebar" src="../image/new/settings.svg"> <?= $lang['settings'] ?></li>
+            </a>
+        </div>
     </ul>
     <div class="sidebar-footer1">
-        <div class="menu-item1">
-            <a href="settings.php">
-                <li><img class="icon-sidebar" src="../image/new/settings-nd.svg"> <?= $lang['settings'] ?></li>
-            </a>
-        </div>
-        <div class="menu-item1">
+        <div class="menu-item1 <?php echo ($current_page == 'logout.php') ? 'active' : ''; ?>">
             <a href="logout.php">
-                <li> <img class="icon-sidebar" src="../image/new/logout-nd.svg"> <?= $lang['logout'] ?></li>
+                <li> <img class="icon-sidebar" src="../image/new/logout.svg"> <?= $lang['logout'] ?></li>
             </a>
         </div>
     </div>
-    <div class="text-center p-3" style="border-top: 1px solid #363636;">
-        &copy;NDK 2025
-    </div>
+
 </nav>
 
 <!-- Toggle Button -->
-<button id="sidebarToggle"><img class="icon-sidebar" src="../image/new/menu-nd.svg"> MENU</button>
+<button id="sidebarToggle" class="arrow-sidebar"><img class="icon-sidebar" src="../image/arrow-left.svg"></button>
