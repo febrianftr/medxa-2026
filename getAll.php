@@ -210,10 +210,10 @@ while ($row = mysqli_fetch_array($query)) {
 
     $data[] = [
         "no" => $i,
-        "report" => '<div class="dropdown custom-dropdown1 dropright"><button class="btn filter-btn2 dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button><div class="dropdown-menu dropdown-menu-right dropdown-menu1" aria-labelledby="dropdownMenuButton1">' . $aksi . '</div>',
-        "status" => $status . '&nbsp;' . $badge,
-        "pat_name" => $detail . '&nbsp;' . $priority_style,
-        "mrn" => $pat_id,
+        "report" => '<div class="dropdown custom-dropdown1 dropright"><button class="btn filter-btn2" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button><div class="dropdown-menu dropdown-menu-right dropdown-menu1" aria-labelledby="dropdownMenuButton1">' . $aksi . '</div>',
+        "status" => '<div style="text-align: start;">' . $status . '&nbsp;' . $badge . '</div>',
+        "pat_name" => '<div style="text-align: start; width: 250px;">' . $detail . '&nbsp;' . $priority_style . '</div>' . '<div style="text-align: start; color: #5d5e5f; font-weight: bold;">' . $pat_id . '</div>',
+        // "mrn" => $pat_id,
         "no_foto" => $no_foto,
         "pat_birthdate" => $pat_birthdate,
         "pat_sex" => $pat_sex,

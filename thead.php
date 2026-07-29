@@ -3,7 +3,7 @@
     <th>Action</th>
     <th style="width: 70px;">Status</th>
     <th><?= $lang['patient_name'] ?></th>
-    <th>MRN</th>
+    <!-- <th>MRN</th> -->
     <th><?= $lang['study_date'] ?></th>
     <th>No Foto</th>
     <th><?= $lang['age'] ?></th>

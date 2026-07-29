@@ -54,7 +54,7 @@ $approved = mysqli_fetch_assoc(mysqli_query(
 <style>
 	/* Custom Card Style */
 	.dash-card {
-		background: linear-gradient(0deg, #09090b 0%, #1c1c1c 100%);
+		background: linear-gradient(0deg, #0a1421 0%, #1e2530 100%);
 		border-radius: 24px;
 		padding: 20px;
 		color: #ffffff;
@@ -65,16 +65,20 @@ $approved = mysqli_fetch_assoc(mysqli_query(
 
 	/* Judul Card */
 	.dash-card-title {
-		color: #a0a5b5;
+		color: #878fa9;
 		/* Warna teks abu-abu redup */
 		font-size: 0.95rem;
-		font-weight: 500;
+		font-weight: bold;
 	}
 
 	/* Ikon Tiga Titik Options */
 	.dash-card-more {
 		color: #a0a5b5;
-		width: 22px;
+		width: 151px;
+		position: absolute;
+		right: -7px;
+		top: 0px;
+		opacity: 0.4;
 	}
 
 	.dash-card-more:hover {
@@ -86,7 +90,6 @@ $approved = mysqli_fetch_assoc(mysqli_query(
 		font-size: 2rem;
 		font-weight: 700;
 		letter-spacing: 0.5px;
-		margin-bottom: 12px;
 	}
 
 	/* Teks Sub/Tren Keterangan */
@@ -104,64 +107,50 @@ $approved = mysqli_fetch_assoc(mysqli_query(
 </style>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-4 mb-3">
+		<div class="col-lg-4 mb-3">
 			<div class="dash-card">
-				<div class="d-flex justify-content-between align-items-center mb-3">
+				<div class="d-flex justify-content-between align-items-center mb-1">
 					<span class="dash-card-title">Total Today Studies</span>
 					<img class="dash-card-more" src="../image/new/users.svg">
-					<!-- <i class="fas fa-ellipsis-h dash-card-more"></i> -->
 				</div>
 				<div class="dash-card-value"><?= $total['total'] ?></div>
-				<!-- <div class="dash-card-sub">
-					<i class="fas fa-chart-line"></i>
-					<span>+2% from last quarter</span>
-				</div> -->
 			</div>
 		</div>
 
-		<div class="col-md-4 mb-3">
+		<div class="col-lg-4 mb-3">
 			<div class="dash-card">
-				<div class="d-flex justify-content-between align-items-center mb-3">
+				<div class="d-flex justify-content-between align-items-center mb-1">
 					<span class="dash-card-title">Today Approved</span>
 					<img class="dash-card-more" src="../image/new/checkmark.svg">
-					<!-- <i class="fas fa-ellipsis-h dash-card-more"></i> -->
 				</div>
 				<div class="dash-card-value"><?= $approved['total']; ?></div>
-				<!-- <div class="dash-card-sub">
-					<i class="fas fa-chart-line"></i>
-					<span>+15% from last quarter</span>
-				</div> -->
 			</div>
 		</div>
 
-		<div class="col-md-4 mb-3">
+		<div class="col-lg-4 mb-3">
 			<div class="dash-card">
-				<div class="d-flex justify-content-between align-items-center mb-3">
+				<div class="d-flex justify-content-between align-items-center mb-1">
 					<span class="dash-card-title">Today Waiting</span>
 					<img class="dash-card-more" src="../image/new/waiting.svg">
-					<!-- <i class="fas fa-ellipsis-h dash-card-more"></i> -->
 				</div>
 				<div class="dash-card-value"><?= $waiting['total']; ?></div>
-				<!-- <div class="dash-card-sub">
-					<i class="fas fa-chart-line"></i>
-					<span>+2% from last quarter</span>
-				</div> -->
+			</div>
+		</div>
+		<div class="table-view">
+			<div class="col-md-12 table-box" style="overflow-x:auto;  position: relative;  padding-top: 50px; height: 300vh;">
+				<?php require_once 'formsearch.php'; ?>
+				<table class="table-dicom" id="purchase_order" style="width: 2400px;" cellpadding="8" cellspacing="0">
+					<thead class="thead1">
+						<?php require 'thead.php'; ?>
+					</thead>
+				</table>
+				<!-- <div id="imagePreview" style="margin-top:20px;"></div> -->
 			</div>
 		</div>
 	</div>
 </div>
 
-<div class="table-view">
-	<div class="col-md-12 table-box" style="overflow-x:auto;  position: relative;  padding-top: 50px; height: 300vh;">
-		<?php require_once 'formsearch.php'; ?>
-		<table class="table-dicom" id="purchase_order" style="width: 2400px;" cellpadding="8" cellspacing="0">
-			<thead class="thead1">
-				<?php require 'thead.php'; ?>
-			</thead>
-		</table>
-		<!-- <div id="imagePreview" style="margin-top:20px;"></div> -->
-	</div>
-</div>
+
 <?php require 'modal.php'; ?>
 <script src="js/3.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.datetimepicker.full.js"></script>

@@ -280,7 +280,7 @@ while ($row = mysqli_fetch_array($result)) {
 
     } else {
       // kondisi ketika xray_workload tidak masuk dari trigger
-      $level = VIEWERCLINICFIRST . $study_iuid . VIEWERCLINICLAST ;
+      $level = VIEWERCLINICFIRST . $study_iuid . VIEWERCLINICLAST;
     }
     // ketika login refferal
   } else if ($level == 'refferal') {
@@ -327,11 +327,11 @@ while ($row = mysqli_fetch_array($result)) {
   $sub_array = array();
   $sub_array[] = $i;
   $sub_array[] = '<div class="dropdown custom-dropdown1 dropright">
-	<button class="btn filter-btn2 dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-Action</button><div class="dropdown-menu dropdown-menu-right dropdown-menu1" aria-labelledby="dropdownMenuButton1">' . PDFFIRST . $study_iuid . PDFLAST . $level . '</div>';
-  $sub_array[] = $status . '&nbsp;' . $badge;
-  $sub_array[] = '<div style="text-align: start;">' . $detail . '&nbsp;' . $priority_style . '</div>';
-  $sub_array[] = $pat_id;
+	<button class="btn filter-btn3" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<img src="../image/new/more.svg" style="width: 30px;"></button><div class="dropdown-menu dropdown-menu-right dropdown-menu1" aria-labelledby="dropdownMenuButton1">' . PDFFIRST . $study_iuid . PDFLAST . $level . '</div>';
+  $sub_array[] = '<div style="text-align: start;">' . $status . '&nbsp;' . $badge . '</div>';
+  $sub_array[] = '<div style="text-align: start; width: 250px;">' . $detail . '&nbsp;' . $priority_style . '</div>' . '<div style="text-align: start; color: #5d5e5f; font-weight: bold;">' . $pat_id . '</div>';
+  // $sub_array[] = $pat_id;
   $sub_array[] = $study_datetime;
   $sub_array[] = $no_foto;
   $sub_array[] = $pat_birthdate;

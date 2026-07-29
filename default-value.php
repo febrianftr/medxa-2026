@@ -130,7 +130,7 @@ function styleStatus($value, $study_iuid)
     if ($value == 'WAITING' || $value == 'waiting') {
         $status =  '<img src="../image/new/waiting-nd.svg" title="Waiting to Approve" style="width: 23px;">';
     } else if ($value == 'APPROVED' || $value == 'approved') {
-        $status =  '<img src="../image/new/history-nd.svg" title="Expertise History" style="width: 23px;"> <a href="workload-fill-detail.php?study_iuid=' . $study_iuid . '"><img src="../image/new/approved-nd.svg" title="Expertise Approved" style="width: 23px;"></a>';
+        $status =  '<a href="workload-fill-detail.php?study_iuid=' . $study_iuid . '"><img src="../image/new/approved-nd.svg" title="Expertise Approved" style="width: 23px;"></a> <img src="../image/new/history-nd.svg" title="Expertise History" style="width: 20px;">';
     } else if ($value == 'backup') {
         $status =  '<i style="font-size: 14px; color: red" class="fas fa-check-square"> BACK UP</i>';
     } else {

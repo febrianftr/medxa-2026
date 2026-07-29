@@ -156,7 +156,7 @@
     /* Sidebar */
     #sidebar1 {
         width: 250px;
-        background-color: #242527;
+        background-color: #1e293a;
         /* border-right: 1px solid #0D9488; */
         position: fixed;
         top: 0;
@@ -346,7 +346,7 @@
         margin-top: 10px;
         border: none;
         background-color: #f0f0f0;
-        color: #242527;
+        color: #1e293a;
     }
 
     .sidebar-search1 {
