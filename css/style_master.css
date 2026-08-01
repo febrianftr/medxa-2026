@@ -4184,7 +4184,7 @@ table.dataTable > thead .sorting_desc_disabled::after {
 }
 
 input.form-control {
-  border-radius: 3px;
+  border-radius: 4px;
 }
 
 .filter-btn1 {
@@ -4275,10 +4275,11 @@ input.form-control {
 
 .btn-fil {
   white-space: nowrap;
-  border-radius: 3px;
-  padding: 12px 33px;
+  border-radius: 4px;
+  padding: 10px 19px;
   box-shadow: none;
-  font-size: 9px;
+  font-size: 12px;
+  margin: 8px 0;
 }
 
 /* Gaya dasar chip preview */
@@ -4326,7 +4327,7 @@ input.form-control {
 .chip-nd {
   position: absolute;
   left: -140px;
-  top: -24px;
+  top: -53px;
   display: none; /*display hide*/
 }
 

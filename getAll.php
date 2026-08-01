@@ -161,7 +161,7 @@ while ($row = mysqli_fetch_array($query)) {
         } else {
             // kondisi ketika xray_workload TIDAK masuk dari trigger
             $aksi = '!TRIGGER!';
-            $detail = '<a href="dicom.php" class="penawaran-a">' . mb_convert_encoding(removeCharacter($pat_name), 'UTF-8', 'ISO-8859-1') . '</a>';
+            $detail = '<a href="dicom.php" class="penawaran-a" style="vertical-align: middle;">' . mb_convert_encoding(removeCharacter($pat_name), 'UTF-8', 'ISO-8859-1') . '</a>';
         }
     } else {
         if ($level == 'refferal') {

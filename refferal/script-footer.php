@@ -280,67 +280,160 @@
 
     <script>
         $(document).ready(function() {
-            // Toggle dropdown visibility
-            $('#filterToggle1').click(function(e) {
-                e.stopPropagation();
-                $('#filterDropdown1').toggle();
+
+            // ====================================================
+            // 1. MANAJEMEN TAMPILAN DROPDOWN
+            // ====================================================
+
+            // A. Toggle Date Dropdown (Manual Input)
+            $('#filterToggle1').on('click', function(e) {
+                e.preventDefault();
+                $('#filterRangeDropdown').hide(); // Tutup dropdown sebelah
+                $('#filterDropdown1').toggle(); // Buka/tutup dropdown ini
             });
 
-            // Close dropdown when clicking outside
-            $(document).click(function(e) {
+            // B. Toggle Date Range Dropdown (Preset List)
+            $('#filterRangeToggle').on('click', function(e) {
+                e.preventDefault();
+                $('#filterDropdown1').hide(); // Tutup dropdown sebelah
+                $('#filterRangeDropdown').toggle(); // Buka/tutup dropdown ini
+            });
+
+            // C. Tutup dropdown jika klik di area luar
+            $(document).on('click', function(e) {
                 if (!$(e.target).closest('#filterDropdown1, #filterToggle1').length) {
                     $('#filterDropdown1').hide();
                 }
+                if (!$(e.target).closest('#filterRangeDropdown, #filterRangeToggle').length) {
+                    $('#filterRangeDropdown').hide();
+                }
             });
 
-            // Search filter inside dropdown
-            $('#searchZones1').on('keyup', function() {
-                var value = $(this).val().toLowerCase();
-                $('.checkbox-list1 label').filter(function() {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-                });
-            });
 
-            // --- Auto manage show/hide and View All button ---
-            let zoneLabels = $('.checkbox-list1 .zone-check1').parent('label');
-            let viewAllBtn = $('#viewAll1');
+            // ====================================================
+            // 2. LOGIKA HITUNG TANGGAL (DATE RANGE)
+            // ====================================================
+            function getDatesForRange(range) {
+                const today = new Date();
+                const formatDate = (d) => {
+                    let month = '' + (d.getMonth() + 1);
+                    let day = '' + d.getDate();
+                    let year = d.getFullYear();
+                    if (month.length < 2) month = '0' + month;
+                    if (day.length < 2) day = '0' + day;
+                    return [year, month, day].join('-');
+                };
 
-            // Jika lebih dari 4 zone, sembunyikan sisanya dan tampilkan tombol view all
-            if (zoneLabels.length > 4) {
-                zoneLabels.slice(4).hide();
-                viewAllBtn.show();
+                let from = '';
+                let to = formatDate(today);
+
+                switch (range) {
+                    case 'this_year':
+                        from = formatDate(new Date(today.getFullYear(), 0, 1));
+                        break;
+                    case 'last_7_days':
+                        from = formatDate(new Date(today.getTime() - (7 * 24 * 60 * 60 * 1000)));
+                        break;
+                    case 'last_14_days':
+                        from = formatDate(new Date(today.getTime() - (14 * 24 * 60 * 60 * 1000)));
+                        break;
+                    case 'last_30_days':
+                        from = formatDate(new Date(today.getTime() - (30 * 24 * 60 * 60 * 1000)));
+                        break;
+                    case 'this_week':
+                        const firstDayThisWeek = new Date(today.setDate(today.getDate() - today.getDay() + 1));
+                        from = formatDate(firstDayThisWeek);
+                        to = formatDate(new Date());
+                        break;
+                    case 'last_week':
+                        const lastDayLastWeek = new Date(today.setDate(today.getDate() - today.getDay()));
+                        to = formatDate(lastDayLastWeek);
+                        const firstDayLastWeek = new Date(lastDayLastWeek);
+                        firstDayLastWeek.setDate(lastDayLastWeek.getDate() - 6);
+                        from = formatDate(firstDayLastWeek);
+                        break;
+                    case 'this_month':
+                        from = formatDate(new Date(today.getFullYear(), today.getMonth(), 1));
+                        to = formatDate(new Date());
+                        break;
+                    case 'last_month':
+                        from = formatDate(new Date(today.getFullYear(), today.getMonth() - 1, 1));
+                        to = formatDate(new Date(today.getFullYear(), today.getMonth(), 0));
+                        break;
+                    case 'custom':
+                        return null;
+                }
+                return {
+                    from,
+                    to
+                };
             }
 
-            // Toggle tampil semua / sembunyi
-            viewAllBtn.on('click', function(e) {
+            // Pilihan Range Date diklik
+            $('.range-option').click(function(e) {
                 e.preventDefault();
-                let hidden = zoneLabels.slice(4).is(':hidden');
-                zoneLabels.slice(4).slideToggle(200);
-                $(this).text(hidden ? 'View less...' : 'View all...');
+                const rangeType = $(this).data('range');
+                const rangeText = $(this).text();
+
+                if (rangeType !== 'custom') {
+                    const dates = getDatesForRange(rangeType);
+                    if (dates) {
+                        $('#from_study_datetime').val(dates.from);
+                        $('#to_study_datetime').val(dates.to);
+                    }
+                    $('#dateRangeBtnText').text(rangeText);
+                } else {
+                    $('#dateRangeBtnText').text('Custom');
+                }
+
+                $('#filterRangeDropdown').hide();
+                updateFilterPreview();
             });
 
 
-            // ✅ Check All Functionality
+            // ====================================================
+            // 3. MODALITY CHECK ALL
+            // ====================================================
             $('#checkAll1').on('change', function() {
                 const isChecked = $(this).is(':checked');
                 $('.zone-check1').prop('checked', isChecked);
             });
 
-            // ✅ Update Check All dynamically
             $(document).on('change', '.zone-check1', function() {
                 const allZones = $('.zone-check1').length;
                 const checkedZones = $('.zone-check1:checked').length;
                 $('#checkAll1').prop('checked', allZones === checkedZones);
             });
 
+
+            // ====================================================
+            // 4. FUNGSI PREVIEW CHIPS & TEXT TOMBOL (GABUNGAN)
+            // ====================================================
+            let isManualInput = false;
+
             function updateFilterPreview() {
                 const previewContainer = $('#selectedZonesPreview1');
-                previewContainer.empty();
+                previewContainer.empty(); // Bersihkan container sebelum render ulang
 
-                // === 1. Date range preview ===
                 const fromDate = $('#from_study_datetime').val();
                 const toDate = $('#to_study_datetime').val();
 
+                // A. Update Teks di Tombol Filter Date
+                let dateBtnText = 'All Time';
+                if (fromDate && toDate) {
+                    dateBtnText = `${fromDate} - ${toDate}`;
+                } else if (fromDate) {
+                    dateBtnText = `Since ${fromDate}`;
+                } else if (toDate) {
+                    dateBtnText = `Until ${toDate}`;
+                }
+                $('#datePreviewText').text(dateBtnText);
+
+                if (isManualInput) {
+                    $('#dateRangeBtnText').text('Custom');
+                }
+
+                // B. Menampilkan Chip Tag Filter Tanggal di Bawah
                 if (fromDate || toDate) {
                     let dateText = '';
                     if (fromDate && toDate) {
@@ -350,49 +443,35 @@
                     } else {
                         dateText = `To: ${toDate}`;
                     }
-
-                    previewContainer.append(`
-    <span class="zone-tag1" data-type="date">
-      ${dateText} <span class="remove-filter1" data-target="date">&times;</span>
-    </span>
-  `);
+                    previewContainer.append(`<span class="zone-tag1" data-type="date">${dateText} <span class="remove-filter1" data-target="date">&times;</span></span>`);
                 }
 
-                // === 2. Input text preview (example: Name, MRN, No Foto) ===
+                // C. Menampilkan Chip Tag Inputan Text (Name, MRN, dll)
                 $('.filter-input1').each(function() {
                     const val = $(this).val().trim();
                     const label = $(this).attr('placeholder') || $(this).attr('name');
                     if (val) {
-                        previewContainer.append(`
-        <span class="zone-tag1" data-type="text" data-target="#${this.id}">
-          ${label}: ${val} <span class="remove-filter1">&times;</span>
-        </span>
-      `);
+                        previewContainer.append(`<span class="zone-tag1" data-type="text" data-target="#${this.id}">${label}: ${val} <span class="remove-filter1">&times;</span></span>`);
                     }
                 });
 
-                // === 3. Modality (Zone) preview ===
-                const selectedZones = $('.zone-check1:checked')
-                    .map(function() {
-                        return $(this).val();
-                    })
-                    .get();
-
+                // D. Menampilkan Chip Tag Modalitas (Modality)
+                const selectedZones = $('.zone-check1:checked').map(function() {
+                    return $(this).val();
+                }).get();
                 selectedZones.forEach(zone => {
-                    previewContainer.append(`
-      <span class="zone-tag1" data-type="zone" data-zone="${zone}">
-        ${zone} <span class="remove-filter1">&times;</span>
-      </span>
-    `);
+                    previewContainer.append(`<span class="zone-tag1" data-type="zone" data-zone="${zone}">${zone} <span class="remove-filter1">&times;</span></span>`);
                 });
             }
 
-            // Event hapus chip filter
+
+            // ====================================================
+            // 5. EVENT HAPUS CHIP (TANDA X PADA PREVIEW)
+            // ====================================================
             $(document).on('click', '.remove-filter1', function() {
                 const chip = $(this).parent('.zone-tag1');
                 const type = chip.data('type');
 
-                // 🧹 Hapus filter berdasarkan tipe chip
                 if (type === 'zone') {
                     const zoneName = chip.data('zone');
                     $('.zone-check1').filter(function() {
@@ -400,29 +479,310 @@
                     }).prop('checked', false);
                 } else if (type === 'date') {
                     $('#from_study_datetime, #to_study_datetime').val('');
+                    $('#dateRangeBtnText').text('Date Range Filter'); // Kembalikan ke text default
                 } else if (type === 'text') {
                     const target = chip.data('target');
                     $(target).val('');
                 }
 
-                // 🧩 Perbarui status Check All
                 const allZones = $('.zone-check1').length;
                 const checkedZones = $('.zone-check1:checked').length;
                 $('#checkAll1').prop('checked', allZones === checkedZones);
 
-                // 🔄 Refresh tampilan chip preview
                 updateFilterPreview();
             });
 
 
-            // === Event realtime update ===
-            // Update preview secara realtime
-            $(document).on('input change blur', '.filter-input1, #from_study_datetime, #to_study_datetime, .zone-check1, #checkAll1', function() {
+            // Trigger setiap kali ada inputan yang berubah
+            $(document).on('input change blur', '.filter-input1, .zone-check1, #checkAll1', function() {
                 updateFilterPreview();
             });
 
+            // Trigger khusus untuk input tanggal agar bisa memicu "Custom" di Date Range
+            $(document).on('input change', '#from_study_datetime, #to_study_datetime', function() {
+                isManualInput = true;
+                updateFilterPreview();
+                isManualInput = false;
+            });
 
+            // Inisialisasi tampilan awal
             updateFilterPreview();
+
+
+            // ====================================================
+            // 6. ANIMASI ICON SIDEBAR
+            // ====================================================
+            const $toggleBtn = $('#sidebarToggle');
+
+            if ($(window).width() <= 768) {
+                $toggleBtn.addClass('active');
+            }
+
+            $toggleBtn.click(function() {
+                $(this).toggleClass('active');
+            });
+
+            $(window).resize(function() {
+                if ($(window).width() <= 768) {
+                    $toggleBtn.addClass('active');
+                } else {
+                    $toggleBtn.removeClass('active');
+                }
+            });
+
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+
+            // ====================================================
+            // 1. MANAJEMEN TAMPILAN DROPDOWN
+            // ====================================================
+
+            // A. Toggle Date Dropdown (Manual Input)
+            $('#filterToggle1').on('click', function(e) {
+                e.preventDefault();
+                $('#filterRangeDropdown').hide(); // Tutup dropdown sebelah
+                $('#filterDropdown1').toggle(); // Buka/tutup dropdown ini
+            });
+
+            // B. Toggle Date Range Dropdown (Preset List)
+            $('#filterRangeToggle').on('click', function(e) {
+                e.preventDefault();
+                $('#filterDropdown1').hide(); // Tutup dropdown sebelah
+                $('#filterRangeDropdown').toggle(); // Buka/tutup dropdown ini
+            });
+
+            // C. Tutup dropdown jika klik di area luar
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('#filterDropdown1, #filterToggle1').length) {
+                    $('#filterDropdown1').hide();
+                }
+                if (!$(e.target).closest('#filterRangeDropdown, #filterRangeToggle').length) {
+                    $('#filterRangeDropdown').hide();
+                }
+            });
+
+
+            // ====================================================
+            // 2. LOGIKA HITUNG TANGGAL (DATE RANGE)
+            // ====================================================
+            function getDatesForRange(range) {
+                const today = new Date();
+                const formatDate = (d) => {
+                    let month = '' + (d.getMonth() + 1);
+                    let day = '' + d.getDate();
+                    let year = d.getFullYear();
+                    if (month.length < 2) month = '0' + month;
+                    if (day.length < 2) day = '0' + day;
+                    return [year, month, day].join('-');
+                };
+
+                let from = '';
+                let to = formatDate(today);
+
+                switch (range) {
+                    case 'this_year':
+                        from = formatDate(new Date(today.getFullYear(), 0, 1));
+                        break;
+                    case 'last_7_days':
+                        from = formatDate(new Date(today.getTime() - (7 * 24 * 60 * 60 * 1000)));
+                        break;
+                    case 'last_14_days':
+                        from = formatDate(new Date(today.getTime() - (14 * 24 * 60 * 60 * 1000)));
+                        break;
+                    case 'last_30_days':
+                        from = formatDate(new Date(today.getTime() - (30 * 24 * 60 * 60 * 1000)));
+                        break;
+                    case 'this_week':
+                        const firstDayThisWeek = new Date(today.setDate(today.getDate() - today.getDay() + 1));
+                        from = formatDate(firstDayThisWeek);
+                        to = formatDate(new Date());
+                        break;
+                    case 'last_week':
+                        const lastDayLastWeek = new Date(today.setDate(today.getDate() - today.getDay()));
+                        to = formatDate(lastDayLastWeek);
+                        const firstDayLastWeek = new Date(lastDayLastWeek);
+                        firstDayLastWeek.setDate(lastDayLastWeek.getDate() - 6);
+                        from = formatDate(firstDayLastWeek);
+                        break;
+                    case 'this_month':
+                        from = formatDate(new Date(today.getFullYear(), today.getMonth(), 1));
+                        to = formatDate(new Date());
+                        break;
+                    case 'last_month':
+                        from = formatDate(new Date(today.getFullYear(), today.getMonth() - 1, 1));
+                        to = formatDate(new Date(today.getFullYear(), today.getMonth(), 0));
+                        break;
+                    case 'custom':
+                        return null;
+                }
+                return {
+                    from,
+                    to
+                };
+            }
+
+            // Pilihan Range Date diklik
+            $('.range-option').click(function(e) {
+                e.preventDefault();
+                const rangeType = $(this).data('range');
+                const rangeText = $(this).text();
+
+                if (rangeType !== 'custom') {
+                    const dates = getDatesForRange(rangeType);
+                    if (dates) {
+                        $('#from_study_datetime').val(dates.from);
+                        $('#to_study_datetime').val(dates.to);
+                    }
+                    $('#dateRangeBtnText').text(rangeText);
+                } else {
+                    $('#dateRangeBtnText').text('Custom');
+                }
+
+                $('#filterRangeDropdown').hide();
+                updateFilterPreview();
+            });
+
+
+            // ====================================================
+            // 3. MODALITY CHECK ALL
+            // ====================================================
+            $('#checkAll1').on('change', function() {
+                const isChecked = $(this).is(':checked');
+                $('.zone-check1').prop('checked', isChecked);
+            });
+
+            $(document).on('change', '.zone-check1', function() {
+                const allZones = $('.zone-check1').length;
+                const checkedZones = $('.zone-check1:checked').length;
+                $('#checkAll1').prop('checked', allZones === checkedZones);
+            });
+
+
+            // ====================================================
+            // 4. FUNGSI PREVIEW CHIPS & TEXT TOMBOL (GABUNGAN)
+            // ====================================================
+            let isManualInput = false;
+
+            function updateFilterPreview() {
+                const previewContainer = $('#selectedZonesPreview1');
+                previewContainer.empty(); // Bersihkan container sebelum render ulang
+
+                const fromDate = $('#from_study_datetime').val();
+                const toDate = $('#to_study_datetime').val();
+
+                // A. Update Teks di Tombol Filter Date
+                let dateBtnText = 'All Time';
+                if (fromDate && toDate) {
+                    dateBtnText = `${fromDate} - ${toDate}`;
+                } else if (fromDate) {
+                    dateBtnText = `Since ${fromDate}`;
+                } else if (toDate) {
+                    dateBtnText = `Until ${toDate}`;
+                }
+                $('#datePreviewText').text(dateBtnText);
+
+                if (isManualInput) {
+                    $('#dateRangeBtnText').text('Custom');
+                }
+
+                // B. Menampilkan Chip Tag Filter Tanggal di Bawah
+                if (fromDate || toDate) {
+                    let dateText = '';
+                    if (fromDate && toDate) {
+                        dateText = `${fromDate} → ${toDate}`;
+                    } else if (fromDate) {
+                        dateText = `From: ${fromDate}`;
+                    } else {
+                        dateText = `To: ${toDate}`;
+                    }
+                    previewContainer.append(`<span class="zone-tag1" data-type="date">${dateText} <span class="remove-filter1" data-target="date">&times;</span></span>`);
+                }
+
+                // C. Menampilkan Chip Tag Inputan Text (Name, MRN, dll)
+                $('.filter-input1').each(function() {
+                    const val = $(this).val().trim();
+                    const label = $(this).attr('placeholder') || $(this).attr('name');
+                    if (val) {
+                        previewContainer.append(`<span class="zone-tag1" data-type="text" data-target="#${this.id}">${label}: ${val} <span class="remove-filter1">&times;</span></span>`);
+                    }
+                });
+
+                // D. Menampilkan Chip Tag Modalitas (Modality)
+                const selectedZones = $('.zone-check1:checked').map(function() {
+                    return $(this).val();
+                }).get();
+                selectedZones.forEach(zone => {
+                    previewContainer.append(`<span class="zone-tag1" data-type="zone" data-zone="${zone}">${zone} <span class="remove-filter1">&times;</span></span>`);
+                });
+            }
+
+
+            // ====================================================
+            // 5. EVENT HAPUS CHIP (TANDA X PADA PREVIEW)
+            // ====================================================
+            $(document).on('click', '.remove-filter1', function() {
+                const chip = $(this).parent('.zone-tag1');
+                const type = chip.data('type');
+
+                if (type === 'zone') {
+                    const zoneName = chip.data('zone');
+                    $('.zone-check1').filter(function() {
+                        return $(this).val() === zoneName;
+                    }).prop('checked', false);
+                } else if (type === 'date') {
+                    $('#from_study_datetime, #to_study_datetime').val('');
+                    $('#dateRangeBtnText').text('Date Range Filter'); // Kembalikan ke text default
+                } else if (type === 'text') {
+                    const target = chip.data('target');
+                    $(target).val('');
+                }
+
+                const allZones = $('.zone-check1').length;
+                const checkedZones = $('.zone-check1:checked').length;
+                $('#checkAll1').prop('checked', allZones === checkedZones);
+
+                updateFilterPreview();
+            });
+
+
+            // Trigger setiap kali ada inputan yang berubah
+            $(document).on('input change blur', '.filter-input1, .zone-check1, #checkAll1', function() {
+                updateFilterPreview();
+            });
+
+            // Trigger khusus untuk input tanggal agar bisa memicu "Custom" di Date Range
+            $(document).on('input change', '#from_study_datetime, #to_study_datetime', function() {
+                isManualInput = true;
+                updateFilterPreview();
+                isManualInput = false;
+            });
+
+            // Inisialisasi tampilan awal
+            updateFilterPreview();
+
+
+            // ====================================================
+            // 6. ANIMASI ICON SIDEBAR
+            // ====================================================
+            const $toggleBtn = $('#sidebarToggle');
+
+            if ($(window).width() <= 768) {
+                $toggleBtn.addClass('active');
+            }
+
+            $toggleBtn.click(function() {
+                $(this).toggleClass('active');
+            });
+
+            $(window).resize(function() {
+                if ($(window).width() <= 768) {
+                    $toggleBtn.addClass('active');
+                } else {
+                    $toggleBtn.removeClass('active');
+                }
+            });
 
         });
     </script>

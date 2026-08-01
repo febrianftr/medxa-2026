@@ -440,7 +440,7 @@
             </div>
 
             <li class="menu-item1 <?php echo ($current_page == 'registration.php' || $current_page == 'order2.php' || $current_page == 'exam2.php') ? 'active' : ''; ?>">
-                <a href="#" class="products1"><img class="icon-sidebar" src="../image/new/patient.svg"> Order <i class="fas fa-chevron-down float-right"></i></a>
+                <a href="#" class="products1"><img class="icon-sidebar" src="../image/new/patient.svg"> Registration <i class="fas fa-chevron-down float-right"></i></a>
                 <ul class="submenu1">
                     <li id="regist1"><a href="registration.php">New Registration</a></li>
                     <li id="order3"><a href="order2.php"><?= $lang['all_order'] ?></a></li>
@@ -448,7 +448,7 @@
                 </ul>
             </li>
             <li class="menu-item1 <?php echo ($current_page == 'report.php' || $current_page == 'workload-fill.php' || $current_page == 'storage.php') ? 'active' : ''; ?>">
-                <a href="#" class="services"><img class="icon-sidebar" src="../image/new/book.svg"> Other <i class="fas fa-chevron-down float-right"></i></a>
+                <a href="#" class="services"><img class="icon-sidebar" src="../image/new/book.svg"> Report <i class="fas fa-chevron-down float-right"></i></a>
                 <ul class="submenu1">
                     <li id="report1"><a href="report.php"><?= $lang['download_excel'] ?></a></li>
                     <li id="expertise-history"><a href="workload-fill.php">Expertise History</a></li>
@@ -517,4 +517,53 @@
 </nav>
 
 <!-- Toggle Button -->
-<button id="sidebarToggle" class="arrow-sidebar"><img class="icon-sidebar" src="../image/arrow-left.svg"></button>
+<style>
+    /* From Uiverse.io by JulanDeAlb */
+    .hamburger {
+        cursor: pointer;
+    }
+
+    .hamburger input {
+        display: none;
+    }
+
+    .hamburger svg {
+        height: 3em;
+        transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
+        /* Default awal (Sidebar Show): Berbentuk "X" */
+        transform: rotate(-45deg);
+    }
+
+    .line {
+        fill: none;
+        stroke: white;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 3;
+        transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
+            stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .line-top-bottom {
+        /* Default awal (Sidebar Show): Garis "X" */
+        stroke-dasharray: 20 300;
+        stroke-dashoffset: -32.42;
+    }
+
+    /* KETIKA ADA CLASS .active (Sidebar Hide): Berubah jadi 3 Garis */
+    .hamburger.active svg {
+        transform: rotate(0deg);
+    }
+
+    .hamburger.active svg .line-top-bottom {
+        stroke-dasharray: 12 63;
+        stroke-dashoffset: 0;
+    }
+</style>
+
+<button id="sidebarToggle" class="arrow-sidebar hamburger">
+    <svg viewBox="0 0 32 32">
+        <path class="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"></path>
+        <path class="line" d="M7 16 27 16"></path>
+    </svg>
+</button>

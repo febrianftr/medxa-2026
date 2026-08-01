@@ -147,10 +147,10 @@ define('CHOOSESERIESLAST', '"><i class="far fa-list-alt"></i>Choose Series</a>')
 define('SIMRS', '<i class="fas fa-exchange-alt text-info" style="font-size:0.5rem;" title="terintegrasi dengan SIMRS"></i>');
 
 // priority NORMAL
-define('PRIORITYNORMAL', '<i style="color: #2d2; font-size:0.4rem;" class="fas fa-circle"></i>');
+define('PRIORITYNORMAL', '<i style="color: #2d2; font-size:0.4rem; vertical-align: center;" class="fas fa-circle"></i>');
 
 // PIORITY CITO
-define('PRIORITYCITO', '<i style="color: red; font-size:0.4rem;" class="fas fa-circle"></i>');
+define('PRIORITYCITO', '<i style="color: red; font-size:0.4rem; vertical-align: center;" class="fas fa-circle"></i>');
 
 // PUSH NOTIFICATION send WA
 define('PUSHNOTIFICATIONFIRST', '<a class="dropdown-item dropdown-item1" href="view-push-notification.php?uid=');
