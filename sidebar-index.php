@@ -142,7 +142,6 @@
 <style>
     body {
         margin: 0;
-        font-family: "Helvetica", sans-serif;
         min-height: 100vh;
         overflow-x: hidden;
     }
@@ -154,10 +153,9 @@
     }
 
     /* Sidebar */
-    #sidebar1 {
+    /* #sidebar1 {
         width: 250px;
-        background-color: #1e293a;
-        /* border-right: 1px solid #0D9488; */
+        background-color: #182232;
         position: fixed;
         top: 0;
         bottom: 0;
@@ -169,6 +167,28 @@
         flex-direction: column;
         height: 100vh;
         color: #F8F9FA;
+        font-weight: 500;
+    } */
+
+    #sidebar1 {
+        width: 250px;
+        background-color: #182232;
+        border-right: 1px solid rgba(255, 255, 255, 0.08);
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        overflow-y: auto;
+        transition: left 0.28s ease, transform 0.28s ease;
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        /* Menjaga Logout tetap di paling bawah */
+        padding: 20px 16px;
+        /* Memberikan ruang napas di dalam sidebar */
+        color: #F8F9FA;
+        box-sizing: border-box;
     }
 
     .sidebar-footer1 {
@@ -203,8 +223,8 @@
     }
 
     #sidebar1 .sidebar-header {
-        padding: 20px 20px 12px 20px;
-        font-size: 18px;
+        padding: 0 20px 10px 20px;
+        font-size: 11px;
         font-weight: bold;
         border-bottom: 1px solid #191A1C;
     }
@@ -296,7 +316,7 @@
         color: #2f2f2f;
         border: none;
         border-radius: 5px;
-        padding: 8px 12px;
+        padding: 5px 8px;
         cursor: pointer;
         transition: left 0.28s ease;
         z-index: 200;
@@ -407,7 +427,7 @@
     <div class="sidebar-header">
         <img src="../image/logo-sidebar2.png" style="width: 110px;">
         <!-- Input search -->
-        <label style="color: darkgray; font-size: 9px; margin-top: 3px;">Radiologi Information System</label>
+        <label style="color: darkgray; margin-top: 3px;">Radiologi Information System</label>
         <!-- <div class="sidebar-search1">
             <img src="../image/new/search-menu.svg" alt="Search" class="search-img1">
             <input type="text" id="searchMenu1" class="form-control form-control-sm search-input1" placeholder="Search menu" autocomplete="off">
@@ -528,7 +548,7 @@
     }
 
     .hamburger svg {
-        height: 3em;
+        height: 2.5em;
         transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
         /* Default awal (Sidebar Show): Berbentuk "X" */
         transform: rotate(-45deg);

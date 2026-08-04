@@ -16,6 +16,11 @@ require '../random.php';
 <link rel="stylesheet" type="text/css" media="screen" href="css/jquery.datetimepicker.min.css">
 <link href="../css/select2.min.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="../css/style_master.css?v=<?= $random; ?>" />
+
+<!-- Google Fonts: Inter (UI) + JetBrains Mono (Data Tables) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/css_media.css?v=<?= $random; ?>">
 
 <!-- untuk validasi form -->

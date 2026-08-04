@@ -47,9 +47,9 @@ li {
 }
 
 body {
-  font-size: 11px;
+  font-size: 12px;
   color: #fff;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   background-color: #0f1925;
   background-size: cover;
   background-attachment: fixed;
@@ -125,6 +125,17 @@ a {
   color: #b3b3b3;
   display: inline-table;
   /* text-transform: uppercase; */
+  font-variant-numeric: tabular-nums;
+}
+
+/* Utility class for explicit monospace data (IDs, Timestamps) */
+.font-mono,
+.table-dicom .mono,
+.table-dicom td.numeric,
+.table-dicom td.price,
+.table-dicom td.count {
+  font-family: 'JetBrains Mono', 'Roboto Mono', monospace;
+  font-variant-numeric: tabular-nums;
 }
 
 h4 {
@@ -137,15 +148,15 @@ h4 {
 th {
   /*border: 1px solid #bababa;*/
   padding: 5px;
-  text-align: center;
-  font-size: 13px;
+  text-align: start;
+  font-size: 12px;
 }
 
 table.table-dicom tbody tr {
-  /* background-color: #fffbfb; */
+  /* background-color: #0f1825; */
 }
 .table-dicom tr:nth-child(even) {
-  /* background-color: #fffbfb; */
+  /* background-color: #0f1825; */
 }
 
 .table-dicom tr:hover {
@@ -206,7 +217,7 @@ table td {
 
 table.dataTable tbody th,
 table.dataTable tbody td {
-  padding: 3px 1px;
+  padding: 3px;
   border-bottom: 1px solid #232323;
   /* font-family: 'Roboto', sans-serif; */
   /* font-weight: bold; */
@@ -809,7 +820,7 @@ canvas {
 .left-information {
   padding: 10px 10px 88px 10px;
   border-radius: 5px;
-  background: #fffbfb;
+  background: #0f1825;
   height: 100%;
   margin-bottom: 30px;
 }
@@ -996,7 +1007,7 @@ select {
 /* ========dropdown======================= */
 
 .dashboard-home {
-  background-color: #fffbfb;
+  background-color: #0f1825;
   padding: 5px;
   margin: 13px 5px;
   border-radius: 5px;
@@ -1603,7 +1614,8 @@ label.file1:after {
 
 .table-dicom thead th,
 .table-dicom thead td {
-  /* border-bottom: 3px solid #1f69b7; */
+  border-bottom: 2px solid #384d6c;
+  border-right: 1px solid #384d6c;
 }
 
 /* table.dataTable thead th,
@@ -2040,7 +2052,7 @@ input[type="submit"] {
 }
 
 .regist label {
-  color: #222;
+  /* color: #222; */
 }
 
 .regist2 {
@@ -3294,7 +3306,7 @@ button:focus {
 /* =====SIDE NAVBAR=========== */
 
 .back-search {
-  background-color: #fffbfb;
+  background-color: #0f1825;
   padding: 8px;
   border-radius: 5px;
   margin-bottom: 10px;
@@ -3442,7 +3454,7 @@ table.dataTable > thead .sorting_desc_disabled::after {
 .pagination .page-item .page-link:focus {
   background-color: #363636;
   -webkit-box-shadow: none;
-  color: #fffbfb;
+  color: #0f1825;
   box-shadow: none;
 }
 
@@ -3459,13 +3471,13 @@ table.dataTable > thead .sorting_desc_disabled::after {
   box-shadow: none;
 }
 .pagination .page-item .page-link:hover {
-  background-color: #fffbfb;
+  background-color: #0f1825;
   color: #222;
 }
 
 .head-title {
   margin-left: -15px;
-  background: #fffbfb;
+  background: #0f1825;
   border-radius: 5px 5px 0 0;
   margin-bottom: -16px;
   padding-left: 4px;
@@ -3949,7 +3961,7 @@ table.dataTable > thead .sorting_desc_disabled::after {
   border-bottom: 2px solid #505050 !important;
 }
 .costum-table-dark .table-pasien tr:hover {
-  background-color: #fffbfb;
+  background-color: #0f1825;
 }
 .costum-table-dark .table-pasien {
   background: #434242;
@@ -3975,8 +3987,8 @@ table.dataTable > thead .sorting_desc_disabled::after {
 }
 
 .form-control {
- background-color: #242527;
-  border: 1px solid #343333;
+background-color: #1e293a;
+  border: 2px solid #384d6c;
   color: #b6b6b6;
 }
 .form-control:focus {
@@ -3986,7 +3998,7 @@ table.dataTable > thead .sorting_desc_disabled::after {
 }
 
 .card-header-nd {
-  background-color: #fffbfb;
+  background-color: #0f1825;
   border-radius: 5px 5px 0px 0px;
 }
 
@@ -4447,12 +4459,12 @@ input.form-control {
   flex-direction: column;
   width: 100%;
   pointer-events: auto;
-  background-color: #277b85;
+  background-color: #1e293a;
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 0.3rem;
   outline: 0;
-  color: #222;
+  color: #c5c5c5;
 }
 
 .modal-header {
@@ -4720,7 +4732,7 @@ font-size: 15px;
 	}
 
   .mytemplate thead {
-	border: 1px solid #fffbfb;
+	border: 1px solid #0f1825;
   }
 
   .mytemplate a {
@@ -4728,7 +4740,7 @@ font-size: 15px;
   }
 
   .mytemplate thead td {
-    border: 1px solid #fffbfb;
+    border: 1px solid #0f1825;
   }
 
   .padding-rl-nd{
@@ -4759,6 +4771,18 @@ font-size: 15px;
 .menu-item1:hover {
 
 }
+
+.thead1{
+  background-color: #1e293a;
+}
+
+.thead1 tr:hover {
+  background-color: #1e293a;
+}
+table.dataTable > thead > tr > th:not(.sorting_disabled), table.dataTable > thead > tr > td:not(.sorting_disabled) {
+  padding-right: 15px;
+}
+
 
 @media (max-width: 960px) {
   .img3 {

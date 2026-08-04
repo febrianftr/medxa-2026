@@ -64,11 +64,7 @@ $date2 = date('d-m-Y 23:59');
 
     /* Styling baru untuk tombol Filter Date */
     .filter-date1 {
-        background-color: #242527;
         color: #777;
-        border: 1px solid #2f3841;
-        border-radius: 4px;
-        padding: 7px 15px;
         display: inline-flex;
         align-items: center;
         gap: 8px;
@@ -77,13 +73,14 @@ $date2 = date('d-m-Y 23:59');
         transition: all 0.2s ease;
         height: 32px;
         margin: 0;
+        border-radius: 6px;
+        border: 2px solid #384d6c;
+        padding: 6px 10px;
+        background-color: #1e293a;
     }
 
     .filter-date1:hover {
-        background-color: #31373e;
-        color: #ffffff;
-        border-color: #5c6a79;
-        text-decoration: none;
+        color: #777;
     }
 
     .filter-date1 i {
@@ -163,6 +160,38 @@ $date2 = date('d-m-Y 23:59');
     btn-search-work:hover .svgIcon {
         background-color: rgb(0, 105, 105);
     }
+
+    /* ===================================== */
+    .label-input2 {
+        position: relative;
+        display: block;
+        width: 250px;
+        display: flex;
+        border-radius: 6px;
+        border: 2px solid #384d6c;
+        padding: 4px 10px;
+        text-align: left;
+        margin-bottom: 0;
+        background-color: #1e293a;
+    }
+
+    .icon-input2 {
+        position: absolute;
+        top: 53%;
+        right: 0;
+        transform: translate(-50%, -50%);
+        transition: all 0.3s ease;
+        color: #c5c5c5;
+        width: 18px;
+    }
+
+    .input2 {
+        background-color: transparent;
+        outline: none;
+        border: none;
+        color: #c5c5c5;
+        font-size: 13px;
+    }
 </style>
 
 <form action="#" method="post" class="filter-nd">
@@ -220,13 +249,27 @@ $date2 = date('d-m-Y 23:59');
 
                 <!-- Search Inputs -->
                 <div class="col-auto" style="padding-right: 0px; padding-left: 0px;">
+                    <label class="label-input2">
+                        <img src="../image/new/name-nd.svg" alt="Search" class="icon-input2">
+                        <input type="text" class="input2" placeholder="Enter name" name="pat_name" id="pat_name" />
+                    </label>
+                </div>
+
+                <div class="col-auto" style="padding-right: 0px; padding-left: 0px;">
+                    <label class="label-input2">
+                        <img src="../image/new/mrn-nd.svg" alt="Search" class="icon-input2">
+                        <input type="text" class="input2" placeholder="Enter MRN" name="mrn" id="mrn" />
+                    </label>
+                </div>
+
+                <!-- <div class="col-auto" style="padding-right: 0px; padding-left: 0px;">
                     <img src="../image/new/name-nd.svg" alt="Search" class="search-img1">
                     <input type="text" class="form-control filter-input1" name="pat_name" id="pat_name" placeholder="Name">
-                </div>
-                <div class="col-auto" style="padding-right: 0px; padding-left: 0px;">
+                </div> -->
+                <!-- <div class="col-auto" style="padding-right: 0px; padding-left: 0px;">
                     <img src="../image/new/mrn-nd.svg" alt="Search" class="search-img1">
                     <input type="text" class="form-control filter-input1" name="mrn" id="mrn" placeholder="MRN">
-                </div>
+                </div> -->
 
                 <?php if ($level == 'radiology') { ?>
                     <div class="col-auto" style="padding-right: 0px; padding-left: 0px;">

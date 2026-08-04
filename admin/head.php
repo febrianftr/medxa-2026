@@ -19,6 +19,11 @@ require '../random.php';
 <link rel="stylesheet" href="fontawesome/css/all.css">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
+<!-- Google Fonts: Inter (UI) + JetBrains Mono (Data Tables) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
 <!-- untuk validasi form -->
 <style>
     .not-allowed {

@@ -264,6 +264,8 @@ while ($row = mysqli_fetch_array($result)) {
         // VIEWERADVANCEFIRST . $study_iuid . VIEWERADVANCELAST .
         // VIEWERMOBILEFIRST . $study_iuid  . VIEWERMOBILELAST .
         VIEWERCLINICFIRST . $study_iuid . VIEWERCLINICLAST .
+        VIEWERMOBILEFIRST . $study_iuid . VIEWERMOBILELAST .
+        VIEWERADVANCEFIRST . $study_iuid . VIEWERADVANCELAST .
         // HTMLFIRST . $study_iuid . HTMLLAST .
         '<h6 class="dropdown-title1"> Patient</h6>' .
         EDITPASIENFIRST . $study_iuid . EDITPASIENLAST . $icon_edit_pasien . EDITPASIENVERYLAST .
@@ -325,10 +327,10 @@ while ($row = mysqli_fetch_array($result)) {
   }
 
   $sub_array = array();
-  $sub_array[] = $i;
-  $sub_array[] = '<div class="dropdown custom-dropdown1 dropright">
+  $sub_array[] = '<div style="text-align : center;">' . $i . '</div>';
+  $sub_array[] = '<div class="dropdown custom-dropdown1 dropright" style="text-align : center;">
 	<button class="btn filter-btn3" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-<img src="../image/new/more.svg" style="width: 30px;"></button><div class="dropdown-menu dropdown-menu-right dropdown-menu1" aria-labelledby="dropdownMenuButton1">' . PDFFIRST . $study_iuid . PDFLAST . $level . '</div>';
+<img src="../image/new/more.svg" style="width: 25px;"></button><div class="dropdown-menu dropdown-menu-right dropdown-menu1" aria-labelledby="dropdownMenuButton1">' . PDFFIRST . $study_iuid . PDFLAST . $level . '</div>';
   $sub_array[] = '<div style="text-align: start;">' . $status . '&nbsp;' . $badge . '</div>';
   $sub_array[] = '<div style="text-align: start; width: 250px;">' . $detail . '&nbsp;' . $priority_style . '</div>' . '<div style="text-align: start; color: #5d5e5f; font-weight: bold;">' . $pat_id . '</div>';
   // $sub_array[] = $pat_id;
